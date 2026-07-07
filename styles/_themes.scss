@@ -98,14 +98,15 @@
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  // Backgrounds & surfaces — layered elevation via lightening
-  --bg: #{$slate-950};
-  --bg-subtle: #{$slate-900};
-  --surface: #{$slate-900};
-  --surface-raised: #{color.adjust($slate-900, $lightness: 4%)};
-  --surface-sunken: #{$slate-950};
-  --surface-hover: #{color.adjust($slate-900, $lightness: 6%)};
-  --surface-active: #{color.adjust($slate-900, $lightness: 10%)};
+  // Backgrounds & surfaces — neutral near-black graphite (MUI-style ink),
+  // layered by explicit steps so cards lift subtly off a blackish canvas.
+  --bg: #08090c;
+  --bg-subtle: #0d0e12;
+  --surface: #101217;
+  --surface-raised: #16181e;
+  --surface-sunken: #0b0c10;
+  --surface-hover: #191c22;
+  --surface-active: #21242b;
 
   // Text (kept above WCAG AA on dark surfaces)
   --text-1: #{$slate-50};
@@ -114,10 +115,10 @@
   --text-4: #{$slate-500};
   --text-on-accent: #{$slate-0};
 
-  // Borders
-  --border: #{color.adjust($slate-800, $lightness: 6%)};
-  --border-strong: #{color.adjust($slate-700, $lightness: 6%)};
-  --border-subtle: #{$slate-800};
+  // Borders — subtle neutral hairlines on ink
+  --border: #23262d;
+  --border-strong: #31353d;
+  --border-subtle: #191b21;
   --ring: #{rgba($cobalt-400, 0.5)};
 
   // Primary — brighten one step so it pops on dark
@@ -151,9 +152,9 @@
   --info-text: #{color.adjust($info-500, $lightness: 18%)};
   --info-border: #{rgba($info-500, 0.35)};
 
-  --neutral-soft: #{color.adjust($slate-800, $lightness: 6%)};
+  --neutral-soft: #1c1f26;
   --neutral-text: #{$slate-300};
-  --neutral-border: #{color.adjust($slate-700, $lightness: 4%)};
+  --neutral-border: #31353d;
 
   // Elevation — deeper shadows read on dark
   --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -164,10 +165,10 @@
 
   --scrim: rgba(0, 0, 0, 0.65);
 
-  --skeleton-base: #{color.adjust($slate-800, $lightness: 4%)};
-  --skeleton-sheen: #{color.adjust($slate-800, $lightness: 10%)};
+  --skeleton-base: #191c22;
+  --skeleton-sheen: #262a31;
 
-  --chart-grid: #{color.adjust($slate-800, $lightness: 6%)};
+  --chart-grid: #21252c;
   --chart-axis: #{$slate-500};
-  --chart-track: #{color.adjust($slate-800, $lightness: 3%)};
+  --chart-track: #16181e;
 }

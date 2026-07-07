@@ -19,7 +19,7 @@
   font-family: var(--font-ui);
   font-size: var(--_fz);
   font-weight: $weight-semibold;
-  line-height: 1;
+  line-height: 1.2;
   letter-spacing: $tracking-snug;
   white-space: nowrap;
   cursor: pointer;
@@ -82,6 +82,9 @@
   }
   &__label {
     @include truncate;
+    line-height: 1.2;
+    // Extra room so ascenders/descenders aren't clipped by truncate's overflow.
+    padding-block: 1px;
   }
 
   &.is-loading &__content {

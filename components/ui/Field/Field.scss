@@ -77,6 +77,14 @@
     &::placeholder {
       color: var(--text-4);
     }
+    // The .rc-control wrapper owns the focus ring (via :focus-within), so
+    // suppress the global :focus-visible ring on the inner field to avoid
+    // a double / nested-box outline.
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
   }
 
   &__affix {

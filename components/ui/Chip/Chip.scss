@@ -21,6 +21,8 @@
 
   &__label {
     @include truncate;
+    line-height: 1.2;
+    padding-block: 1px;
   }
   &__icon {
     display: inline-flex;
