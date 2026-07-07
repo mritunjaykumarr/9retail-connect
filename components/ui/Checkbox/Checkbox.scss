@@ -1,0 +1,104 @@
+@use "../../../styles/mixins" as *;
+
+.rc-check {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  cursor: pointer;
+  user-select: none;
+
+  &__input {
+    @include visually-hidden;
+  }
+
+  &__box {
+    position: relative;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-top: 1px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border: 1.5px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    color: #fff;
+    transition: background-color $duration-fast $ease-standard,
+      border-color $duration-fast $ease-standard;
+  }
+
+  &__icon {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity $duration-fast $ease-standard,
+      transform $duration-fast $ease-emphasized;
+    stroke-width: 3;
+  }
+
+  &__input:checked + &__box,
+  &__input:indeterminate + &__box {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  &__input:checked + &__box .rc-check__icon--check {
+    opacity: 1;
+    transform: scale(1);
+  }
+  &__input:indeterminate + &__box .rc-check__icon--indeterminate {
+    opacity: 1;
+    transform: scale(1);
+  }
+  &__input:indeterminate + &__box .rc-check__icon--check {
+    opacity: 0;
+  }
+
+  &__input:focus-visible + &__box {
+    box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ring);
+  }
+  &:hover .rc-check__input:not(:checked):not(:indeterminate) + .rc-check__box {
+    border-color: var(--text-4);
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  &__label {
+    font-size: var(--text-sm);
+    color: var(--text-1);
+    line-height: 1.4;
+  }
+  &__hint {
+    font-size: var(--text-caption);
+    color: var(--text-3);
+    line-height: 1.4;
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}
+
+// ---- Radio (shares chrome, round) ---------------------------
+.rc-radio {
+  @extend .rc-check;
+
+  .rc-check__icon {
+    display: none;
+  }
+  .rc-check__box {
+    border-radius: 50%;
+  }
+  .rc-check__input:checked + .rc-check__box {
+    background: var(--surface);
+    border-color: var(--primary);
+    border-width: 6px;
+  }
+}

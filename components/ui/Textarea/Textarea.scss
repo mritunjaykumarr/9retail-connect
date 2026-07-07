@@ -1,0 +1,12 @@
+.rc-textarea {
+  height: auto;
+  align-items: stretch;
+  padding-block: var(--space-3);
+
+  &__field {
+    height: auto;
+    resize: vertical;
+    line-height: 1.5;
+    min-height: 0;
+  }
+}

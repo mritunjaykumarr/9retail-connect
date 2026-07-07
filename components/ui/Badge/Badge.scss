@@ -1,0 +1,97 @@
+@use "../../../styles/mixins" as *;
+
+.rc-badge {
+  --_tone: var(--neutral-text);
+  --_soft: var(--neutral-soft);
+  --_border: var(--neutral-border);
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 22px;
+  padding-inline: var(--space-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-caption);
+  font-weight: $weight-medium;
+  line-height: 1;
+  white-space: nowrap;
+  letter-spacing: $tracking-snug;
+
+  &--sm {
+    height: 18px;
+    font-size: var(--text-overline);
+    gap: var(--space-1);
+  }
+
+  &__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--_tone);
+    flex-shrink: 0;
+  }
+  &__icon {
+    display: inline-flex;
+    font-size: 1.05em;
+    line-height: 0;
+  }
+
+  // ---- Tones ----
+  &--neutral {
+    --_tone: var(--neutral-text);
+    --_soft: var(--neutral-soft);
+    --_border: var(--neutral-border);
+  }
+  &--primary {
+    --_tone: var(--primary-text);
+    --_soft: var(--primary-soft);
+    --_border: var(--primary-border);
+    --_solid: var(--primary);
+  }
+  &--success {
+    --_tone: var(--success-text);
+    --_soft: var(--success-soft);
+    --_border: var(--success-border);
+    --_solid: var(--success);
+  }
+  &--warning {
+    --_tone: var(--warning-text);
+    --_soft: var(--warning-soft);
+    --_border: var(--warning-border);
+    --_solid: var(--warning);
+  }
+  &--danger {
+    --_tone: var(--danger-text);
+    --_soft: var(--danger-soft);
+    --_border: var(--danger-border);
+    --_solid: var(--danger);
+  }
+  &--info {
+    --_tone: var(--info-text);
+    --_soft: var(--info-soft);
+    --_border: var(--info-border);
+    --_solid: var(--info);
+  }
+
+  // ---- Variants ----
+  &--soft {
+    background: var(--_soft);
+    color: var(--_tone);
+  }
+  &--outline {
+    background: transparent;
+    color: var(--_tone);
+    border-color: var(--_border);
+  }
+  &--solid {
+    background: var(--_solid, var(--neutral-text));
+    color: #fff;
+    .rc-badge__dot {
+      background: rgba(255, 255, 255, 0.9);
+    }
+  }
+  &--neutral#{&}--solid {
+    background: var(--text-2);
+  }
+}

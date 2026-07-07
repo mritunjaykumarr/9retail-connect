@@ -1,0 +1,272 @@
+// =============================================================
+// RetailConnect SIP — Design Tokens (Layer 1: primitives)
+// -------------------------------------------------------------
+// The single source of truth for the raw values of the system.
+// These are the "ingredients" — semantic/theme tokens in
+// _themes.scss map these into role-based CSS custom properties.
+//
+// Naming: primitives are Sass variables here (compile-time) AND
+// mirrored to :root custom properties (runtime) at the bottom.
+// Components should prefer the *semantic* tokens from _themes.scss
+// (e.g. var(--surface), var(--text-1)) over these primitives.
+// =============================================================
+
+// ---- Type families ------------------------------------------
+// Wired in layout.js via next/font, exposed as CSS vars there.
+// Fallbacks here keep SCSS usable and cover any FOUT.
+// $font-sora / $font-jakarta / $font-jbmono are injected by next/font
+// in layout.js. These stacks reference them with robust fallbacks.
+$font-display: var(--font-sora), "Sora", system-ui, sans-serif;
+$font-sans: var(--font-jakarta), "Plus Jakarta Sans", system-ui, -apple-system,
+  "Segoe UI", Roboto, sans-serif;
+$font-mono: var(--font-jbmono), "JetBrains Mono", ui-monospace, SFMono-Regular,
+  "SF Mono", Menlo, Consolas, monospace;
+
+// =============================================================
+// COLOR PRIMITIVES
+// =============================================================
+
+// ---- Primary — Cobalt ---------------------------------------
+$cobalt-50: #ecf2ff;
+$cobalt-100: #dbe6ff;
+$cobalt-200: #bcd0ff;
+$cobalt-300: #8fb0ff;
+$cobalt-400: #5b87ff;
+$cobalt-500: #3465f5;
+$cobalt-600: #1f53e5; // base / primary action
+$cobalt-700: #1842c0;
+$cobalt-800: #17389b;
+$cobalt-900: #172f7a;
+
+// ---- Neutral — Cool Slate -----------------------------------
+$slate-0: #ffffff;
+$slate-50: #f8fafc;
+$slate-100: #f1f5f9;
+$slate-200: #e2e8f0;
+$slate-300: #cbd5e1;
+$slate-400: #94a3b8;
+$slate-500: #64748b;
+$slate-600: #475569;
+$slate-700: #334155;
+$slate-800: #1e293b;
+$slate-900: #0f172a;
+$slate-950: #0a0f1c;
+
+// ---- Semantic hues (each: soft-50 / base-600 / deep-700) -----
+$success-50: #e7f7f0;
+$success-500: #12b886;
+$success-600: #0e9f6e;
+$success-700: #087a54;
+
+$warning-50: #fef4e6;
+$warning-500: #f5a524;
+$warning-600: #dc8a06;
+$warning-700: #b4740a;
+
+$danger-50: #fdecec;
+$danger-500: #f0575b;
+$danger-600: #e5484d;
+$danger-700: #c13538;
+
+$info-50: #e7f6fe;
+$info-500: #38b6f1;
+$info-600: #0ea5e9;
+$info-700: #0b7fb4;
+
+// ---- Data-visualisation series (8, categorical) --------------
+$viz-1: #1f53e5; // cobalt
+$viz-2: #0ea5a4; // teal
+$viz-3: #f5a524; // amber
+$viz-4: #7c5cfc; // violet
+$viz-5: #0e9f6e; // emerald
+$viz-6: #e5484d; // rose
+$viz-7: #0ea5e9; // sky
+$viz-8: #64748b; // slate
+
+// =============================================================
+// SPACING — 8px base with 4px half-steps
+// =============================================================
+$space-0: 0;
+$space-1: 0.25rem; //  4
+$space-2: 0.5rem; //  8
+$space-3: 0.75rem; // 12
+$space-4: 1rem; // 16
+$space-5: 1.25rem; // 20
+$space-6: 1.5rem; // 24
+$space-8: 2rem; // 32
+$space-10: 2.5rem; // 40
+$space-12: 3rem; // 48
+$space-16: 4rem; // 64
+$space-20: 5rem; // 80
+$space-24: 6rem; // 96
+
+// Legacy aliases (kept so existing partials don't break)
+$space-xs: $space-1;
+$space-sm: $space-2;
+$space-md: $space-4;
+$space-lg: $space-6;
+$space-xl: $space-10;
+
+// =============================================================
+// TYPOGRAPHY SCALE (modular ~1.2, fluid on display)
+// =============================================================
+$text-display-2xl: clamp(2.5rem, 1.9rem + 3vw, 3.5rem); // 40 → 56
+$text-display-xl: clamp(2rem, 1.6rem + 2vw, 2.75rem); // 32 → 44
+$text-h1: 2rem; // 32
+$text-h2: 1.5rem; // 24
+$text-h3: 1.25rem; // 20
+$text-h4: 1.125rem; // 18
+$text-lg: 1.0625rem; // 17
+$text-base: 1rem; // 16
+$text-sm: 0.875rem; // 14
+$text-caption: 0.8125rem; // 13
+$text-overline: 0.6875rem; // 11
+
+// Line-heights
+$leading-tight: 1.1;
+$leading-snug: 1.25;
+$leading-normal: 1.5;
+$leading-relaxed: 1.65;
+
+// Weights
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
+
+// Letter-spacing
+$tracking-tight: -0.02em;
+$tracking-snug: -0.01em;
+$tracking-normal: 0;
+$tracking-wide: 0.02em;
+$tracking-overline: 0.08em;
+
+// =============================================================
+// RADII
+// =============================================================
+$radius-xs: 4px;
+$radius-sm: 6px;
+$radius-md: 8px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-2xl: 20px;
+$radius-pill: 999px;
+
+// =============================================================
+// ELEVATION — layered, cool-tinted shadows
+// (shadow color adapts per theme in _themes.scss; these are the
+//  light-theme recipes exposed as defaults)
+// =============================================================
+$shadow-color: 15, 23, 42; // slate-900 rgb channels
+$shadow-xs: 0 1px 2px rgba($slate-900, 0.06);
+$shadow-sm: 0 1px 2px rgba($slate-900, 0.06),
+  0 1px 3px rgba($slate-900, 0.1);
+$shadow-md: 0 2px 4px rgba($slate-900, 0.06),
+  0 4px 12px rgba($slate-900, 0.08);
+$shadow-lg: 0 4px 8px rgba($slate-900, 0.06),
+  0 12px 24px rgba($slate-900, 0.1);
+$shadow-xl: 0 8px 16px rgba($slate-900, 0.08),
+  0 24px 48px rgba($slate-900, 0.14);
+
+// =============================================================
+// MOTION
+// =============================================================
+$duration-fast: 120ms;
+$duration-base: 200ms;
+$duration-slow: 320ms;
+
+$ease-standard: cubic-bezier(0.2, 0.8, 0.2, 1);
+$ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+$ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+// =============================================================
+// Z-INDEX LAYERS
+// =============================================================
+$z-base: 1;
+$z-sticky: 1100;
+$z-dropdown: 1000;
+$z-overlay: 1200;
+$z-modal: 1300;
+$z-tooltip: 1400;
+$z-toast: 1500;
+
+// =============================================================
+// BREAKPOINTS
+// =============================================================
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+// =============================================================
+// PRIMITIVE MIRROR → :root custom properties
+// (semantic/theme mapping lives in _themes.scss)
+// =============================================================
+:root {
+  // Spacing
+  --space-1: #{$space-1};
+  --space-2: #{$space-2};
+  --space-3: #{$space-3};
+  --space-4: #{$space-4};
+  --space-5: #{$space-5};
+  --space-6: #{$space-6};
+  --space-8: #{$space-8};
+  --space-10: #{$space-10};
+  --space-12: #{$space-12};
+  --space-16: #{$space-16};
+  --space-20: #{$space-20};
+  --space-24: #{$space-24};
+
+  // Radii
+  --radius-xs: #{$radius-xs};
+  --radius-sm: #{$radius-sm};
+  --radius-md: #{$radius-md};
+  --radius-lg: #{$radius-lg};
+  --radius-xl: #{$radius-xl};
+  --radius-2xl: #{$radius-2xl};
+  --radius-pill: #{$radius-pill};
+
+  // Type
+  --font-display: #{$font-display};
+  --font-ui: #{$font-sans};
+  --font-code: #{$font-mono};
+  --text-display-2xl: #{$text-display-2xl};
+  --text-display-xl: #{$text-display-xl};
+  --text-h1: #{$text-h1};
+  --text-h2: #{$text-h2};
+  --text-h3: #{$text-h3};
+  --text-h4: #{$text-h4};
+  --text-lg: #{$text-lg};
+  --text-base: #{$text-base};
+  --text-sm: #{$text-sm};
+  --text-caption: #{$text-caption};
+  --text-overline: #{$text-overline};
+
+  // Motion
+  --duration-fast: #{$duration-fast};
+  --duration-base: #{$duration-base};
+  --duration-slow: #{$duration-slow};
+  --ease-standard: #{$ease-standard};
+  --ease-emphasized: #{$ease-emphasized};
+  --ease-exit: #{$ease-exit};
+
+  // Z-index
+  --z-dropdown: #{$z-dropdown};
+  --z-sticky: #{$z-sticky};
+  --z-overlay: #{$z-overlay};
+  --z-modal: #{$z-modal};
+  --z-tooltip: #{$z-tooltip};
+  --z-toast: #{$z-toast};
+
+  // Data-viz series
+  --viz-1: #{$viz-1};
+  --viz-2: #{$viz-2};
+  --viz-3: #{$viz-3};
+  --viz-4: #{$viz-4};
+  --viz-5: #{$viz-5};
+  --viz-6: #{$viz-6};
+  --viz-7: #{$viz-7};
+  --viz-8: #{$viz-8};
+}

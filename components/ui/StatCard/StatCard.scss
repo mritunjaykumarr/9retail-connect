@@ -1,0 +1,101 @@
+@use "../../../styles/mixins" as *;
+
+.rc-stat {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  min-width: 0;
+  overflow: hidden;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+  &__label {
+    font-size: var(--text-caption);
+    font-weight: $weight-medium;
+    color: var(--text-3);
+    letter-spacing: $tracking-wide;
+    @include truncate;
+  }
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    border-radius: var(--radius-md);
+    background: var(--primary-soft);
+    color: var(--primary-text);
+    font-size: 1.05rem;
+  }
+
+  &__value-row {
+    display: flex;
+    align-items: baseline;
+  }
+  &__value {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: $weight-bold;
+    color: var(--text-1);
+    line-height: 1.1;
+    letter-spacing: $tracking-tight;
+    @include tabular-nums;
+  }
+  &__unit {
+    margin-left: 4px;
+    font-size: 0.9rem;
+    font-weight: $weight-medium;
+    color: var(--text-3);
+    letter-spacing: 0;
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 20px;
+  }
+  &__delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: var(--text-caption);
+    font-weight: $weight-semibold;
+    @include tabular-nums;
+
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+    &--positive {
+      color: var(--success-text);
+    }
+    &--negative {
+      color: var(--danger-text);
+    }
+    &--neutral {
+      color: var(--text-3);
+    }
+  }
+  &__delta-label {
+    font-size: var(--text-caption);
+    color: var(--text-3);
+    @include truncate;
+  }
+
+  &__chart {
+    margin-top: var(--space-2);
+    margin-inline: calc(var(--space-5) * -1);
+    margin-bottom: calc(var(--space-5) * -1);
+  }
+}

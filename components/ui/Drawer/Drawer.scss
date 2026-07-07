@@ -1,0 +1,106 @@
+@use "../../../styles/mixins" as *;
+
+.rc-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+
+  &__scrim {
+    position: absolute;
+    inset: 0;
+    background: var(--scrim);
+    backdrop-filter: blur(2px);
+  }
+
+  &__panel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: min(440px, 100vw);
+    background: var(--surface-raised);
+    box-shadow: var(--shadow-xl);
+    will-change: transform;
+
+    &--sm {
+      width: min(340px, 100vw);
+    }
+    &--lg {
+      width: min(560px, 100vw);
+    }
+  }
+
+  &--right &__panel {
+    right: 0;
+    border-left: 1px solid var(--border);
+  }
+  &--left &__panel {
+    left: 0;
+    border-right: 1px solid var(--border);
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--border);
+  }
+  &__titles {
+    min-width: 0;
+  }
+  &__title {
+    font-size: var(--text-h4);
+    color: var(--text-1);
+    font-weight: $weight-semibold;
+  }
+  &__desc {
+    margin-top: 2px;
+    font-size: var(--text-caption);
+    color: var(--text-3);
+    max-width: none;
+  }
+  &__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin: -4px -4px 0 0;
+    border-radius: var(--radius-md);
+    color: var(--text-3);
+    font-size: 1.2rem;
+    transition: background-color $duration-fast $ease-standard,
+      color $duration-fast $ease-standard;
+    &:hover {
+      background: var(--surface-hover);
+      color: var(--text-1);
+    }
+    &:focus-visible {
+      @include focus-ring(1px);
+    }
+  }
+
+  &__body {
+    flex: 1;
+    padding: var(--space-6);
+    overflow-y: auto;
+    @include custom-scrollbar;
+    color: var(--text-2);
+    font-size: var(--text-sm);
+    line-height: 1.6;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--border);
+    background: var(--surface-sunken);
+  }
+}

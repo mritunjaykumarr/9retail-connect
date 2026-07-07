@@ -1,0 +1,71 @@
+@use "../../../styles/mixins" as *;
+
+.rc-switch {
+  --_w: 40px;
+  --_h: 24px;
+  --_pad: 3px;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+  user-select: none;
+
+  &--sm {
+    --_w: 32px;
+    --_h: 20px;
+    --_pad: 2.5px;
+  }
+
+  &__input {
+    @include visually-hidden;
+  }
+
+  &__track {
+    position: relative;
+    flex-shrink: 0;
+    width: var(--_w);
+    height: var(--_h);
+    background: var(--surface-active);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-pill);
+    transition: background-color $duration-base $ease-standard,
+      border-color $duration-base $ease-standard;
+  }
+
+  &__thumb {
+    position: absolute;
+    top: var(--_pad);
+    left: var(--_pad);
+    width: calc(var(--_h) - var(--_pad) * 2 - 2px);
+    height: calc(var(--_h) - var(--_pad) * 2 - 2px);
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    transition: transform $duration-base $ease-emphasized;
+  }
+
+  &__label {
+    font-size: var(--text-sm);
+    color: var(--text-2);
+  }
+
+  // Checked
+  &__input:checked + &__track {
+    background: var(--primary);
+    border-color: var(--primary);
+  }
+  &__input:checked + &__track &__thumb {
+    transform: translateX(calc(var(--_w) - var(--_h)));
+  }
+
+  // Focus
+  &__input:focus-visible + &__track {
+    box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ring);
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+}

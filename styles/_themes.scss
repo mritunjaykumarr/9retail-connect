@@ -1,0 +1,173 @@
+// =============================================================
+// RetailConnect SIP — Semantic Theme Tokens (Layer 2: roles)
+// -------------------------------------------------------------
+// Maps raw primitives (_tokens.scss) into role-based CSS custom
+// properties. Components consume ONLY these — never raw hexes —
+// so the whole system re-themes by swapping this layer.
+//
+// Light is the default (:root). Dark is [data-theme="dark"].
+// =============================================================
+
+@use "sass:color";
+@use "tokens" as *;
+
+// ---- LIGHT (default) ----------------------------------------
+:root,
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  // Backgrounds & surfaces (layered, low → high elevation)
+  --bg: #{$slate-50};
+  --bg-subtle: #{$slate-100};
+  --surface: #{$slate-0};
+  --surface-raised: #{$slate-0};
+  --surface-sunken: #{$slate-50};
+  --surface-hover: #{$slate-100};
+  --surface-active: #{$slate-200};
+
+  // Text
+  --text-1: #{$slate-900}; // primary / headings
+  --text-2: #{$slate-700}; // body
+  --text-3: #{$slate-500}; // muted / captions
+  --text-4: #{$slate-400}; // placeholder / disabled
+  --text-on-accent: #{$slate-0};
+
+  // Borders & dividers
+  --border: #{$slate-200};
+  --border-strong: #{$slate-300};
+  --border-subtle: #{$slate-100};
+  --ring: #{rgba($cobalt-600, 0.4)};
+
+  // Primary (cobalt)
+  --primary: #{$cobalt-600};
+  --primary-hover: #{$cobalt-700};
+  --primary-active: #{$cobalt-800};
+  --primary-soft: #{$cobalt-50};
+  --primary-soft-hover: #{$cobalt-100};
+  --primary-border: #{$cobalt-200};
+  --primary-text: #{$cobalt-700}; // primary-coloured text on light bg
+
+  // Semantic — success
+  --success: #{$success-600};
+  --success-soft: #{$success-50};
+  --success-text: #{$success-700};
+  --success-border: #{color.mix($success-600, $slate-0, 30%)};
+  // warning
+  --warning: #{$warning-600};
+  --warning-soft: #{$warning-50};
+  --warning-text: #{$warning-700};
+  --warning-border: #{color.mix($warning-600, $slate-0, 30%)};
+  // danger
+  --danger: #{$danger-600};
+  --danger-hover: #{$danger-700};
+  --danger-soft: #{$danger-50};
+  --danger-text: #{$danger-700};
+  --danger-border: #{color.mix($danger-600, $slate-0, 30%)};
+  // info
+  --info: #{$info-600};
+  --info-soft: #{$info-50};
+  --info-text: #{$info-700};
+  --info-border: #{color.mix($info-600, $slate-0, 30%)};
+
+  // Neutral badge/chip
+  --neutral-soft: #{$slate-100};
+  --neutral-text: #{$slate-600};
+  --neutral-border: #{$slate-200};
+
+  // Elevation (light recipes)
+  --shadow-xs: #{$shadow-xs};
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-xl: #{$shadow-xl};
+
+  // Overlay scrim
+  --scrim: #{rgba($slate-900, 0.45)};
+
+  // Skeleton shimmer
+  --skeleton-base: #{$slate-200};
+  --skeleton-sheen: #{$slate-100};
+
+  // Chart chrome
+  --chart-grid: #{$slate-200};
+  --chart-axis: #{$slate-400};
+  --chart-track: #{$slate-100};
+}
+
+// ---- DARK ---------------------------------------------------
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  // Backgrounds & surfaces — layered elevation via lightening
+  --bg: #{$slate-950};
+  --bg-subtle: #{$slate-900};
+  --surface: #{$slate-900};
+  --surface-raised: #{color.adjust($slate-900, $lightness: 4%)};
+  --surface-sunken: #{$slate-950};
+  --surface-hover: #{color.adjust($slate-900, $lightness: 6%)};
+  --surface-active: #{color.adjust($slate-900, $lightness: 10%)};
+
+  // Text (kept above WCAG AA on dark surfaces)
+  --text-1: #{$slate-50};
+  --text-2: #{$slate-300};
+  --text-3: #{$slate-400};
+  --text-4: #{$slate-500};
+  --text-on-accent: #{$slate-0};
+
+  // Borders
+  --border: #{color.adjust($slate-800, $lightness: 6%)};
+  --border-strong: #{color.adjust($slate-700, $lightness: 6%)};
+  --border-subtle: #{$slate-800};
+  --ring: #{rgba($cobalt-400, 0.5)};
+
+  // Primary — brighten one step so it pops on dark
+  --primary: #{$cobalt-500};
+  --primary-hover: #{$cobalt-400};
+  --primary-active: #{$cobalt-300};
+  --primary-soft: #{rgba($cobalt-400, 0.14)};
+  --primary-soft-hover: #{rgba($cobalt-400, 0.22)};
+  --primary-border: #{rgba($cobalt-400, 0.35)};
+  --primary-text: #{$cobalt-300};
+
+  // Semantic — soft = translucent tint of the hue, text = light hue
+  --success: #{$success-500};
+  --success-soft: #{rgba($success-500, 0.15)};
+  --success-text: #{color.adjust($success-500, $lightness: 18%)};
+  --success-border: #{rgba($success-500, 0.35)};
+
+  --warning: #{$warning-500};
+  --warning-soft: #{rgba($warning-500, 0.15)};
+  --warning-text: #{color.adjust($warning-500, $lightness: 18%)};
+  --warning-border: #{rgba($warning-500, 0.35)};
+
+  --danger: #{$danger-500};
+  --danger-hover: #{color.adjust($danger-500, $lightness: 8%)};
+  --danger-soft: #{rgba($danger-500, 0.16)};
+  --danger-text: #{color.adjust($danger-500, $lightness: 16%)};
+  --danger-border: #{rgba($danger-500, 0.4)};
+
+  --info: #{$info-500};
+  --info-soft: #{rgba($info-500, 0.15)};
+  --info-text: #{color.adjust($info-500, $lightness: 18%)};
+  --info-border: #{rgba($info-500, 0.35)};
+
+  --neutral-soft: #{color.adjust($slate-800, $lightness: 6%)};
+  --neutral-text: #{$slate-300};
+  --neutral-border: #{color.adjust($slate-700, $lightness: 4%)};
+
+  // Elevation — deeper shadows read on dark
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.45), 0 12px 24px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 8px 16px rgba(0, 0, 0, 0.5), 0 24px 48px rgba(0, 0, 0, 0.7);
+
+  --scrim: rgba(0, 0, 0, 0.65);
+
+  --skeleton-base: #{color.adjust($slate-800, $lightness: 4%)};
+  --skeleton-sheen: #{color.adjust($slate-800, $lightness: 10%)};
+
+  --chart-grid: #{color.adjust($slate-800, $lightness: 6%)};
+  --chart-axis: #{$slate-500};
+  --chart-track: #{color.adjust($slate-800, $lightness: 3%)};
+}

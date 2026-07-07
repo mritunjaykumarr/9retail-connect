@@ -1,0 +1,131 @@
+@use "../../../styles/mixins" as *;
+
+.rc-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &--fitted {
+    display: flex;
+    width: 100%;
+    .rc-tabs__tab {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+
+  &__tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    height: 40px;
+    padding-inline: var(--space-3);
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    font-weight: $weight-medium;
+    color: var(--text-3);
+    white-space: nowrap;
+    border-radius: var(--radius-sm);
+    transition: color $duration-fast $ease-standard,
+      background-color $duration-fast $ease-standard;
+
+    &:hover:not(:disabled):not(.is-active) {
+      color: var(--text-1);
+    }
+    &.is-active {
+      color: var(--text-1);
+      font-weight: $weight-semibold;
+    }
+    &:disabled {
+      color: var(--text-4);
+      cursor: not-allowed;
+    }
+    &:focus-visible {
+      @include focus-ring(1px);
+    }
+  }
+
+  &--sm .rc-tabs__tab {
+    height: 32px;
+    font-size: var(--text-caption);
+  }
+
+  &__icon {
+    display: inline-flex;
+    font-size: 1.05em;
+    line-height: 0;
+  }
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding-inline: 5px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-active);
+    color: var(--text-2);
+    font-size: var(--text-overline);
+    font-weight: $weight-semibold;
+    @include tabular-nums;
+  }
+  .is-active &__badge {
+    background: var(--primary-soft);
+    color: var(--primary-text);
+  }
+
+  &__indicator {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  // ---- Underline variant ----
+  &--underline {
+    gap: var(--space-2);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+    .rc-tabs__tab {
+      border-radius: 0;
+      padding-inline: var(--space-1);
+      margin-bottom: -1px;
+    }
+    .rc-tabs__indicator {
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      border-radius: 2px 2px 0 0;
+      background: var(--primary);
+    }
+  }
+
+  // ---- Segmented variant ----
+  &--segmented {
+    gap: 2px;
+    padding: 3px;
+    background: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    .rc-tabs__tab {
+      height: 32px;
+      z-index: 1;
+      &.is-active {
+        color: var(--text-1);
+      }
+    }
+    .rc-tabs__indicator {
+      inset: 0;
+      z-index: -1;
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-sm);
+    }
+  }
+}

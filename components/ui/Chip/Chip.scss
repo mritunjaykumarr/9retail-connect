@@ -1,0 +1,80 @@
+@use "../../../styles/mixins" as *;
+
+.rc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  height: 30px;
+  padding-inline: var(--space-3);
+  background: var(--surface);
+  color: var(--text-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-ui);
+  font-size: var(--text-caption);
+  font-weight: $weight-medium;
+  line-height: 1;
+  max-width: 100%;
+  transition: background-color $duration-fast $ease-standard,
+    border-color $duration-fast $ease-standard,
+    color $duration-fast $ease-standard;
+
+  &__label {
+    @include truncate;
+  }
+  &__icon {
+    display: inline-flex;
+    font-size: 1.05em;
+    line-height: 0;
+    color: var(--text-3);
+  }
+
+  &.is-interactive {
+    cursor: pointer;
+    &:hover:not(.is-disabled) {
+      background: var(--surface-hover);
+      border-color: var(--text-4);
+    }
+    &:focus-visible {
+      @include focus-ring;
+    }
+    &:active:not(.is-disabled) {
+      transform: scale(0.97);
+    }
+  }
+
+  &.is-selected {
+    background: var(--primary-soft);
+    border-color: var(--primary-border);
+    color: var(--primary-text);
+    .rc-chip__icon {
+      color: var(--primary-text);
+    }
+  }
+
+  &__remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-right: -2px;
+    border-radius: 50%;
+    color: var(--text-3);
+    cursor: pointer;
+    transition: background-color $duration-fast $ease-standard,
+      color $duration-fast $ease-standard;
+    &:hover {
+      background: var(--surface-active);
+      color: var(--text-1);
+    }
+    &:focus-visible {
+      @include focus-ring(1px);
+    }
+  }
+
+  &.is-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}

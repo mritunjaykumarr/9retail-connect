@@ -1,0 +1,147 @@
+@use "../../../styles/mixins" as *;
+
+.rc-table-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-width: 0;
+}
+
+.rc-table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  @include custom-scrollbar;
+}
+
+.rc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+  min-width: 520px;
+
+  thead {
+    &.is-sticky th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+    th {
+      background: var(--surface-sunken);
+      color: var(--text-3);
+      font-size: var(--text-caption);
+      font-weight: $weight-semibold;
+      letter-spacing: $tracking-wide;
+      text-transform: uppercase;
+      padding: var(--space-3);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      user-select: none;
+
+      &.is-sortable {
+        cursor: pointer;
+        &:hover {
+          color: var(--text-1);
+        }
+      }
+      &.is-sorted {
+        color: var(--text-1);
+      }
+    }
+  }
+
+  &__th {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    line-height: 1;
+  }
+  th[style*="right"] &__th {
+    flex-direction: row-reverse;
+  }
+
+  &__sort {
+    display: inline-flex;
+    font-size: 0.9em;
+    opacity: 0;
+    transition: opacity $duration-fast $ease-standard;
+  }
+  th.is-sortable:hover &__sort,
+  th.is-sorted &__sort {
+    opacity: 1;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid var(--border-subtle);
+      transition: background-color $duration-fast $ease-standard;
+      &:last-child {
+        border-bottom: none;
+      }
+      &:hover {
+        background: var(--surface-hover);
+      }
+      &.is-clickable {
+        cursor: pointer;
+        &:focus-visible {
+          outline: none;
+          box-shadow: inset 0 0 0 2px var(--ring);
+        }
+      }
+    }
+    td {
+      height: 48px;
+      padding: var(--space-3);
+      color: var(--text-2);
+      vertical-align: middle;
+    }
+  }
+
+  &__num {
+    font-family: var(--font-code);
+    font-size: var(--text-caption);
+    color: var(--text-1);
+    @include tabular-nums;
+  }
+
+  &__skeleton-row td {
+    height: 48px;
+  }
+}
+
+.rc-table__empty {
+  padding: var(--space-8) var(--space-4);
+  &-text {
+    text-align: center;
+    color: var(--text-3);
+    font-size: var(--text-sm);
+    max-width: none;
+  }
+}
+
+.rc-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--border);
+  background: var(--surface-sunken);
+}
+.rc-table__count {
+  font-size: var(--text-caption);
+  color: var(--text-3);
+  @include tabular-nums;
+}
+.rc-table__pager {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.rc-table__page-ind {
+  font-size: var(--text-caption);
+  color: var(--text-3);
+  @include tabular-nums;
+  white-space: nowrap;
+}

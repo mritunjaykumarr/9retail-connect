@@ -1,24 +1,103 @@
 // =============================================================
 // Global stylesheet — single entry point imported by layout.js
+// -------------------------------------------------------------
+// Token layers load first (primitives → semantic themes), then
+// the reset, then base element styling built ONLY on semantic
+// custom properties so the app re-themes cleanly.
 // =============================================================
 
-@use "../../styles/variables" as *;
-@use "../../styles/mixins" as *;
+@use "../../styles/mixins" as *; // mixins + forwarded token variables (loads tokens :root mirror)
+@use "../../styles/themes"; // semantic light/dark roles
 @use "../../styles/reset";
 
 html {
-  font-family: $font-sans;
+  font-family: var(--font-ui);
   font-size: 16px;
-  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
-  background-color: $color-bg;
-  color: $color-text;
+  background-color: var(--bg);
+  color: var(--text-2);
   font-size: $text-base;
+  line-height: $leading-normal;
+  font-feature-settings: "cv11" 1; // friendlier lowercase l in Jakarta
+  transition: background-color $duration-base $ease-standard,
+    color $duration-base $ease-standard;
+}
+
+// ---- Base typography ----------------------------------------
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  color: var(--text-1);
+  font-weight: $weight-semibold;
+  line-height: $leading-snug;
+  letter-spacing: $tracking-snug;
+}
+
+h1 {
+  font-size: $text-h1;
+  line-height: $leading-tight;
+  letter-spacing: $tracking-tight;
+}
+h2 {
+  font-size: $text-h2;
+}
+h3 {
+  font-size: $text-h3;
+}
+h4 {
+  font-size: $text-h4;
+}
+
+p {
+  max-width: 68ch;
+}
+
+a {
+  color: var(--primary-text);
+  transition: color $duration-fast $ease-standard;
+  &:hover {
+    color: var(--primary-hover);
+  }
 }
 
 code,
-pre {
-  font-family: $font-mono;
+pre,
+kbd,
+samp {
+  font-family: var(--font-code);
+  font-size: 0.9em;
+}
+
+::selection {
+  background: var(--primary-soft);
+  color: var(--primary-text);
+}
+
+// Global focus-visible baseline for keyboard users.
+:focus-visible {
+  outline: 2px solid transparent;
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ring);
+  border-radius: $radius-xs;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// ---- Small shared utilities ---------------------------------
+.rc-tnum {
+  @include tabular-nums;
+}
+.rc-mono {
+  font-family: var(--font-code);
+}
+.rc-sr-only {
+  @include visually-hidden;
 }
