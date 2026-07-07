@@ -1,0 +1,34 @@
+// =============================================================
+// Reusable mixins
+// =============================================================
+
+@use "sass:map";
+@use "variables" as *;
+
+// Responsive min-width media query driven by the $breakpoints map.
+// Usage: @include respond-to(md) { ... }
+@mixin respond-to($breakpoint) {
+  @if map.has-key($breakpoints, $breakpoint) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @error "Unknown breakpoint `#{$breakpoint}`. Available: #{map.keys($breakpoints)}.";
+  }
+}
+
+// Flexbox centering helper.
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+
+// Constrained, horizontally-centered content container.
+@mixin container($max: 1200px) {
+  width: 100%;
+  max-width: $max;
+  margin-inline: auto;
+  padding-inline: $space-md;
+}
