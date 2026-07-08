@@ -1,0 +1,114 @@
+@use "../../styles/mixins" as *;
+
+.mgr {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+
+  &__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-4;
+    flex-wrap: wrap;
+  }
+  &__eyebrow {
+    font-size: $text-caption;
+    font-weight: $weight-semibold;
+    letter-spacing: $tracking-wide;
+    text-transform: uppercase;
+    color: var(--primary-text);
+  }
+  &__title {
+    margin-top: $space-1;
+    font-family: var(--font-display);
+    font-size: $text-h2;
+    font-weight: $weight-bold;
+    letter-spacing: $tracking-tight;
+    color: var(--text-1);
+    line-height: 1.15;
+  }
+  &__subtitle {
+    margin-top: $space-2;
+    max-width: 56ch;
+    font-size: $text-sm;
+    line-height: 1.55;
+    color: var(--text-3);
+  }
+
+  &__stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: $space-4;
+
+    @media (max-width: 900px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__scope {
+    display: flex;
+    gap: $space-4;
+    padding: $space-5;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: $radius-xl;
+  }
+  &__scope-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-lg;
+    background: var(--primary-soft);
+    color: var(--primary-text);
+    font-size: 1.35rem;
+    line-height: 0;
+  }
+  &__scope-body {
+    min-width: 0;
+  }
+  &__scope-title {
+    font-size: $text-h4;
+    font-weight: $weight-semibold;
+    color: var(--text-1);
+    line-height: 1.3;
+  }
+  &__scope-text {
+    margin-top: $space-2;
+    max-width: 64ch;
+    font-size: $text-sm;
+    line-height: 1.6;
+    color: var(--text-2);
+
+    b {
+      color: var(--text-1);
+      font-weight: $weight-semibold;
+    }
+  }
+  &__scope-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-8;
+    margin-top: $space-4;
+
+    dt {
+      font-size: $text-overline;
+      font-weight: $weight-semibold;
+      letter-spacing: $tracking-overline;
+      text-transform: uppercase;
+      color: var(--text-3);
+    }
+    dd {
+      margin-top: 2px;
+      font-size: $text-sm;
+      font-weight: $weight-medium;
+      color: var(--text-1);
+    }
+  }
+}

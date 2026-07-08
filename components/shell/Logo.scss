@@ -1,0 +1,47 @@
+@use "../../styles/mixins" as *;
+
+.rc-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+
+  &__mark {
+    display: inline-flex;
+    flex-shrink: 0;
+    line-height: 0;
+  }
+
+  &__wordmark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: $space-2;
+    min-width: 0;
+  }
+
+  &__name {
+    @include truncate;
+    font-family: var(--font-display);
+    font-size: $text-h4;
+    font-weight: $weight-bold;
+    letter-spacing: $tracking-tight;
+    color: var(--text-1);
+    line-height: 1.1;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    padding: 2px 6px;
+    border-radius: $radius-xs;
+    background: var(--primary-soft);
+    color: var(--primary-text);
+    font-family: var(--font-ui);
+    font-size: $text-overline;
+    font-weight: $weight-bold;
+    letter-spacing: $tracking-wide;
+  }
+
+  &--compact {
+    gap: 0;
+  }
+}

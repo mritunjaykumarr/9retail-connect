@@ -1,0 +1,240 @@
+@use "../../styles/mixins" as *;
+
+.rc-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  height: 64px;
+  padding-inline: $space-5;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+
+  &__left {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    flex: 1;
+    min-width: 0;
+  }
+  &__right {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    flex-shrink: 0;
+  }
+
+  // ---- Icon buttons ----
+  &__icon-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    color: var(--text-2);
+    border-radius: $radius-md;
+    cursor: pointer;
+    font-size: 1.25rem;
+    line-height: 0;
+    transition: background-color $duration-fast $ease-standard,
+      color $duration-fast $ease-standard;
+    &:hover {
+      background: var(--surface-hover);
+      color: var(--text-1);
+    }
+    &:focus-visible {
+      @include focus-ring(1px);
+    }
+  }
+
+  // Hamburger is always present: toggles the desktop rail-collapse and,
+  // below 1024px, opens/closes the off-canvas drawer.
+  &__menu {
+    display: inline-flex;
+  }
+
+  // The dedicated topbar theme toggle is redundant with the one in the
+  // profile menu on small screens — hide it there to save room.
+  &__theme-toggle {
+    @media (max-width: 640px) {
+      display: none;
+    }
+  }
+
+  // ---- Global search ----
+  &__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
+
+    @media (max-width: 640px) {
+      display: none;
+    }
+
+    &-icon {
+      position: absolute;
+      left: $space-3;
+      display: inline-flex;
+      color: var(--text-3);
+      font-size: 1.05rem;
+      line-height: 0;
+      pointer-events: none;
+    }
+    &-input {
+      width: 100%;
+      height: 40px;
+      padding-left: calc(#{$space-3} + 1.4rem);
+      padding-right: $space-8;
+      background: var(--surface-sunken);
+      border: 1px solid var(--border);
+      border-radius: $radius-md;
+      color: var(--text-1);
+      font-family: var(--font-ui);
+      font-size: $text-sm;
+      transition: border-color $duration-fast $ease-standard,
+        box-shadow $duration-fast $ease-standard,
+        background-color $duration-fast $ease-standard;
+
+      &::placeholder {
+        color: var(--text-4);
+      }
+      &:hover {
+        border-color: var(--border-strong);
+      }
+      &:focus {
+        outline: none;
+        background: var(--surface);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px var(--ring);
+      }
+      // Hide the native search clear affordance for a consistent look.
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button {
+        appearance: none;
+      }
+    }
+    &-kbd {
+      position: absolute;
+      right: $space-3;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding-inline: 5px;
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: $radius-xs;
+      color: var(--text-3);
+      font-family: var(--font-mono);
+      font-size: $text-overline;
+      line-height: 1;
+      pointer-events: none;
+    }
+  }
+
+  // ---- Profile trigger ----
+  &__profile {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+    height: 44px;
+    padding: $space-1 $space-2;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: $radius-pill;
+    cursor: pointer;
+    transition: background-color $duration-fast $ease-standard,
+      border-color $duration-fast $ease-standard;
+    &:hover {
+      background: var(--surface-hover);
+    }
+    &:focus-visible {
+      @include focus-ring(1px);
+    }
+
+    &-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1px;
+      min-width: 0;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+    &-name {
+      @include truncate;
+      max-width: 140px;
+      font-size: $text-caption;
+      font-weight: $weight-semibold;
+      color: var(--text-1);
+      line-height: 1.2;
+    }
+    &-role {
+      @include truncate;
+      max-width: 140px;
+      font-size: $text-overline;
+      color: var(--text-3);
+      line-height: 1.2;
+    }
+    &-caret {
+      display: inline-flex;
+      color: var(--text-3);
+      font-size: 1rem;
+      line-height: 0;
+      @media (max-width: 768px) {
+        display: none;
+      }
+    }
+  }
+
+  // ---- Profile menu card ----
+  &__profile-card {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    padding: $space-2 $space-3 $space-3;
+
+    &-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $space-1;
+      min-width: 0;
+    }
+    &-name {
+      @include truncate;
+      font-size: $text-sm;
+      font-weight: $weight-semibold;
+      color: var(--text-1);
+    }
+    &-email {
+      @include truncate;
+      max-width: 190px;
+      font-size: $text-caption;
+      color: var(--text-3);
+    }
+  }
+
+  &__theme-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $space-1 $space-3;
+  }
+  &__theme-label {
+    font-size: $text-sm;
+    font-weight: $weight-medium;
+    color: var(--text-2);
+  }
+
+  &__notif-empty {
+    padding: $space-2 $space-2 $space-1;
+  }
+}

@@ -1,0 +1,73 @@
+@use "../../styles/mixins" as *;
+
+.rc-placeholder {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+
+  &__head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: $space-4;
+  }
+
+  &__heading {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-4;
+    min-width: 0;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: $radius-lg;
+    background: var(--primary-soft);
+    color: var(--primary-text);
+    font-size: 1.5rem;
+    line-height: 0;
+  }
+
+  &__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: $space-3;
+    margin-bottom: $space-1;
+    font-size: $text-caption;
+    font-weight: $weight-medium;
+    color: var(--text-3);
+  }
+
+  &__title {
+    font-family: var(--font-display);
+    font-size: $text-h2;
+    font-weight: $weight-bold;
+    letter-spacing: $tracking-tight;
+    color: var(--text-1);
+    line-height: 1.2;
+  }
+
+  &__desc {
+    margin-top: $space-2;
+    max-width: 60ch;
+    font-size: $text-sm;
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+
+  &__body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 320px;
+    padding: $space-10 $space-6;
+    background: var(--surface);
+    border: 1px dashed var(--border-strong);
+    border-radius: $radius-xl;
+  }
+}

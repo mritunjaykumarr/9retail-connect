@@ -30,6 +30,12 @@ export { default as Tabs } from "./Tabs/Tabs";
 export { default as Modal } from "./Modal/Modal";
 export { default as Drawer } from "./Drawer/Drawer";
 export { default as EmptyState } from "./EmptyState/EmptyState";
+export {
+  default as Menu,
+  MenuItem,
+  MenuLabel,
+  MenuDivider,
+} from "./Menu/Menu";
 export { ToastProvider, useToast } from "./Toast/ToastProvider";
 
 export { default as Table } from "./Table/Table";

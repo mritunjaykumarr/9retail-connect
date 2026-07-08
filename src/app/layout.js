@@ -1,4 +1,5 @@
 import { Sora, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import AuthSessionProvider from "../../components/AuthSessionProvider";
 import { ToastProvider } from "../../components/ui/Toast/ToastProvider";
 import "./globals.scss";
 
@@ -45,7 +46,9 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <ToastProvider>{children}</ToastProvider>
+        <AuthSessionProvider>
+          <ToastProvider>{children}</ToastProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );

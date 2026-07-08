@@ -1,0 +1,398 @@
+@use "../../styles/mixins" as *;
+
+.auth {
+  display: grid;
+  grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--bg);
+
+  @media (max-width: 960px) {
+    grid-template-columns: 1fr;
+  }
+
+  // ---------------------------------------------------------
+  // Form panel (left)
+  // ---------------------------------------------------------
+  &__panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background: var(--surface);
+    padding: $space-6 clamp(#{$space-6}, 5vw, #{$space-16});
+
+    @media (max-width: 560px) {
+      padding: $space-5 $space-5 $space-8;
+    }
+  }
+
+  &__topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-4;
+  }
+  &__brand {
+    display: inline-flex;
+    text-decoration: none;
+    border-radius: $radius-md;
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+
+  &__form-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: $space-8;
+    width: 100%;
+    max-width: 400px;
+    margin-inline: auto;
+    padding-block: $space-10;
+
+    @media (max-width: 560px) {
+      padding-block: $space-8;
+      gap: $space-6;
+    }
+  }
+
+  // ---------------------------------------------------------
+  // Shared form primitives (used by login / forgot / reset)
+  // ---------------------------------------------------------
+  // Vertical rhythm between the intro, form and footer within a view.
+  &__stack {
+    display: flex;
+    flex-direction: column;
+    gap: $space-8;
+
+    @media (max-width: 560px) {
+      gap: $space-6;
+    }
+  }
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+  }
+  &__eyebrow {
+    font-size: $text-caption;
+    font-weight: $weight-semibold;
+    letter-spacing: $tracking-wide;
+    text-transform: uppercase;
+    color: var(--primary-text);
+  }
+  &__title {
+    font-family: var(--font-display);
+    font-size: clamp(#{$text-h3}, 1.4rem + 1.4vw, #{$text-h1});
+    font-weight: $weight-bold;
+    letter-spacing: $tracking-tight;
+    line-height: 1.12;
+    color: var(--text-1);
+  }
+  &__subtitle {
+    font-size: $text-base;
+    line-height: 1.55;
+    color: var(--text-3);
+    max-width: 42ch;
+
+    b,
+    strong {
+      color: var(--text-2);
+      font-weight: $weight-semibold;
+    }
+  }
+
+  &__form {
+    display: grid;
+    gap: $space-5;
+  }
+
+  &__pw-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    margin: -4px;
+    background: transparent;
+    border: none;
+    color: var(--text-3);
+    cursor: pointer;
+    border-radius: $radius-sm;
+    line-height: 0;
+    font-size: 1.05em;
+    transition: color $duration-fast $ease-standard;
+    &:hover {
+      color: var(--text-1);
+    }
+    &:focus-visible {
+      @include focus-ring(1px);
+    }
+  }
+
+  &__row {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -$space-2;
+
+    &--between {
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  &__link {
+    background: transparent;
+    border: none;
+    padding: 0;
+    font-family: var(--font-ui);
+    font-size: $text-caption;
+    font-weight: $weight-medium;
+    color: var(--primary-text);
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: $radius-xs;
+    &:hover {
+      text-decoration: underline;
+    }
+    &:focus-visible {
+      @include focus-ring(2px);
+    }
+  }
+
+  &__hint,
+  &__error {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-2;
+    padding: $space-3 $space-3;
+    border-radius: $radius-md;
+    font-size: $text-caption;
+    line-height: 1.45;
+    svg {
+      flex-shrink: 0;
+      margin-top: 1px;
+      font-size: 1.05em;
+    }
+  }
+  &__hint {
+    background: var(--surface-sunken);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-2);
+    svg {
+      color: var(--text-3);
+    }
+  }
+  &__error {
+    background: var(--danger-soft);
+    border: 1px solid var(--danger-border);
+    color: var(--danger-text);
+    svg {
+      color: var(--danger);
+    }
+  }
+
+  &__legal {
+    font-size: $text-caption;
+    line-height: 1.5;
+    color: var(--text-4);
+    max-width: 44ch;
+  }
+
+  // ---------------------------------------------------------
+  // Notice block — the "email sent" / "password updated" /
+  // "link expired" confirmation screens.
+  // ---------------------------------------------------------
+  &__notice {
+    display: flex;
+    flex-direction: column;
+    gap: $space-4;
+  }
+  &__notice-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: $radius-lg;
+    font-size: 1.6rem;
+    line-height: 0;
+
+    &--success {
+      background: var(--success-soft);
+      color: var(--success-text);
+    }
+    &--info {
+      background: var(--primary-soft);
+      color: var(--primary-text);
+    }
+    &--danger {
+      background: var(--danger-soft);
+      color: var(--danger-text);
+    }
+  }
+  &__notice-title {
+    font-family: var(--font-display);
+    font-size: clamp(#{$text-h3}, 1.4rem + 1.4vw, #{$text-h1});
+    font-weight: $weight-bold;
+    letter-spacing: $tracking-tight;
+    line-height: 1.15;
+    color: var(--text-1);
+  }
+  &__notice-text {
+    font-size: $text-base;
+    line-height: 1.55;
+    color: var(--text-3);
+    max-width: 44ch;
+
+    b,
+    strong {
+      color: var(--text-2);
+      font-weight: $weight-semibold;
+    }
+  }
+  &__notice-actions {
+    display: flex;
+    flex-direction: column;
+    gap: $space-3;
+    margin-top: $space-2;
+  }
+
+  // ---------------------------------------------------------
+  // Brand / hero panel (right)
+  // ---------------------------------------------------------
+  &__hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 100%;
+    isolation: isolate;
+    background: var(--primary-active);
+
+    @media (max-width: 960px) {
+      order: -1;
+      min-height: 220px;
+      max-height: 32vh;
+    }
+    @media (max-width: 560px) {
+      min-height: 168px;
+    }
+  }
+
+  &__hero-media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(4, 9, 26, 0.86) 0%,
+        rgba(4, 9, 26, 0.35) 46%,
+        rgba(4, 9, 26, 0.2) 100%
+      );
+    }
+  }
+  &__hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &__hero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    mix-blend-mode: multiply;
+    background: linear-gradient(
+      152deg,
+      color-mix(in srgb, var(--primary) 70%, #070f28) 0%,
+      color-mix(in srgb, var(--primary) 38%, #070f28) 50%,
+      rgba(7, 15, 40, 0.55) 100%
+    );
+  }
+
+  &__hero-grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.14;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.6) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(120% 90% at 70% 20%, #000 30%, transparent 78%);
+  }
+
+  &__hero-content {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: clamp(#{$space-6}, 4vw, #{$space-16});
+    color: #fff;
+
+    @media (max-width: 960px) {
+      padding: $space-6;
+    }
+  }
+  &__hero-kicker {
+    font-size: $text-caption;
+    font-weight: $weight-semibold;
+    letter-spacing: $tracking-wide;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.72);
+    margin-bottom: $space-4;
+  }
+  &__hero-statement {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 1rem + 1.8vw, 2.5rem);
+    font-weight: $weight-semibold;
+    letter-spacing: $tracking-tight;
+    line-height: 1.18;
+    max-width: 16ch;
+    text-wrap: balance;
+
+    @media (max-width: 960px) {
+      font-size: clamp(1.25rem, 3.5vw, 1.6rem);
+      max-width: 26ch;
+    }
+  }
+
+  &__hero-stats {
+    display: flex;
+    align-items: center;
+    gap: $space-6;
+    margin-top: $space-8;
+
+    @media (max-width: 960px) {
+      display: none;
+    }
+  }
+  &__hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    &-num {
+      font-family: var(--font-display);
+      font-size: $text-h3;
+      font-weight: $weight-bold;
+      @include tabular-nums;
+      color: #fff;
+    }
+    &-label {
+      font-size: $text-caption;
+      color: rgba(255, 255, 255, 0.72);
+      max-width: 18ch;
+    }
+  }
+  &__hero-divider {
+    width: 1px;
+    align-self: stretch;
+    background: rgba(255, 255, 255, 0.22);
+  }
+}
