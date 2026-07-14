@@ -1,1 +1,5 @@
-export { default } from "../../../../components/shell/ModulePlaceholder";
+import { redirect } from "next/navigation";
+
+export default function Page() {
+  redirect("/distributor");
+}

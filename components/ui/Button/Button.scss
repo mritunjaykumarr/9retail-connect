@@ -104,9 +104,10 @@
   &--primary {
     background: var(--primary);
     color: var(--text-on-accent);
-    box-shadow: var(--shadow-xs);
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.12);
     &:hover:not(:disabled) {
       background: var(--primary-hover);
+      box-shadow: 0 4px 8px rgba(37, 99, 235, 0.18);
     }
     &:active:not(:disabled) {
       background: var(--primary-active);
@@ -115,12 +116,13 @@
 
   &--secondary {
     background: var(--surface);
-    color: var(--text-1);
-    border-color: var(--border-strong);
-    box-shadow: var(--shadow-xs);
+    color: var(--text-2);
+    border-color: var(--border);
+    box-shadow: var(--shadow-sm);
     &:hover:not(:disabled) {
       background: var(--surface-hover);
       border-color: var(--border-strong);
+      color: var(--text-1);
     }
   }
 

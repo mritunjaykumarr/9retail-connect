@@ -8,19 +8,21 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  height: 22px;
-  padding-inline: var(--space-2);
+  height: 24px;
+  padding-inline: var(--space-3);
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  font-size: var(--text-caption);
-  font-weight: $weight-medium;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-overline);
+  font-weight: $weight-semibold;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   line-height: 1;
   white-space: nowrap;
-  letter-spacing: $tracking-snug;
 
   &--sm {
-    height: 18px;
+    height: 20px;
     font-size: var(--text-overline);
+    padding-inline: 6px;
     gap: var(--space-1);
   }
 

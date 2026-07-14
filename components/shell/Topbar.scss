@@ -92,13 +92,11 @@
       padding-right: $space-8;
       background: var(--surface-sunken);
       border: 1px solid var(--border);
-      border-radius: $radius-md;
+      border-radius: $radius-pill;
       color: var(--text-1);
       font-family: var(--font-ui);
       font-size: $text-sm;
-      transition: border-color $duration-fast $ease-standard,
-        box-shadow $duration-fast $ease-standard,
-        background-color $duration-fast $ease-standard;
+      transition: all $duration-base $ease-standard;
 
       &::placeholder {
         color: var(--text-4);

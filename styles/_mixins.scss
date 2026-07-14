@@ -29,6 +29,14 @@
   justify-content: center;
 }
 
+// Flexbox space-between helper.
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
 // Constrained, horizontally-centered content container.
 @mixin container($max: 1200px) {
   width: 100%;

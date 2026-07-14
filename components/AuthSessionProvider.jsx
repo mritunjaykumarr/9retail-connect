@@ -1,10 +1,13 @@
 "use client";
 
-// Thin client wrapper around NextAuth's SessionProvider so the whole app
-// (shell, login, everything) can read the real session via useSession().
-import { SessionProvider } from "next-auth/react";
+// =============================================================
+// AuthSessionProvider — BYPASSED for frontend prototype
+// -------------------------------------------------------------
+// Original used NextAuth's SessionProvider which requires a
+// backend /api/auth endpoint. Replaced with a simple passthrough
+// so the app renders without any backend dependencies.
+// =============================================================
 
 export default function AuthSessionProvider({ children }) {
-  // refetchInterval keeps the sliding session fresh without a hard reload.
-  return <SessionProvider refetchOnWindowFocus>{children}</SessionProvider>;
+  return <>{children}</>;
 }

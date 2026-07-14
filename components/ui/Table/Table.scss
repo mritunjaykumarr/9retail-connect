@@ -2,10 +2,11 @@
 
 .rc-table-wrap {
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   overflow: hidden;
   min-width: 0;
+  box-shadow: var(--shadow-sm);
 }
 
 .rc-table-scroll {
@@ -27,13 +28,13 @@
       z-index: 1;
     }
     th {
-      background: var(--surface-sunken);
+      background: var(--surface);
       color: var(--text-3);
-      font-size: var(--text-caption);
-      font-weight: $weight-semibold;
-      letter-spacing: $tracking-wide;
+      font-size: var(--text-overline);
+      font-weight: $weight-bold;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      padding: var(--space-3);
+      padding: var(--space-4) var(--space-4);
       border-bottom: 1px solid var(--border);
       white-space: nowrap;
       user-select: none;
@@ -74,7 +75,8 @@
   tbody {
     tr {
       border-bottom: 1px solid var(--border-subtle);
-      transition: background-color $duration-fast $ease-standard;
+      transition: background-color $duration-base $ease-standard, transform 0.15s ease;
+      
       &:last-child {
         border-bottom: none;
       }
@@ -90,8 +92,8 @@
       }
     }
     td {
-      height: 48px;
-      padding: var(--space-3);
+      height: 52px;
+      padding: 14px var(--space-4);
       color: var(--text-2);
       vertical-align: middle;
     }
@@ -101,11 +103,12 @@
     font-family: var(--font-code);
     font-size: var(--text-caption);
     color: var(--text-1);
+    font-weight: $weight-semibold;
     @include tabular-nums;
   }
 
   &__skeleton-row td {
-    height: 48px;
+    height: 52px;
   }
 }
 

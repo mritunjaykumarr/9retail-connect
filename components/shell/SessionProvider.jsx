@@ -1,31 +1,16 @@
 "use client";
 
 // =============================================================
-// SessionProvider — the shell's identity source.
+// SessionProvider — MOCK for frontend prototype
 // -------------------------------------------------------------
-// Sourced from the REAL NextAuth v5 session (name / email / role /
-// avatar travel on the JWT — see auth.js). Keeps the same
-// `useSession()` API the shell already consumes, so nothing downstream
-// changed. A dev-only role switcher remains as a LOCAL preview override
-// (persisted to localStorage) so the role-aware nav can be exercised
-// across roles without seven logins; it never changes the real session
-// and is cleared on sign-out.
+// Provides a hardcoded distributor-admin session so the shell
+// renders without NextAuth or any backend.
 // =============================================================
 
-import React, { createContext, useContext, useEffect, useState } from "react";
-import {
-  useSession as useNextAuthSession,
-  signOut as nextAuthSignOut,
-} from "next-auth/react";
+import React, { createContext, useContext, useState } from "react";
 import { ROLES, ROLE_META, ROLE_ORDER } from "../../lib/roles";
 
-// Legacy key from the pre-auth mock. We no longer persist a role override
-// (it would mask the real authenticated role across sessions); we only
-// clean up any stale value left behind.
-const LEGACY_DEV_ROLE_KEY = "rc-dev-role";
-
-// Sample territory labels per role — a display fallback until the
-// Territory model + population land (session carries only the ref id).
+// Sample territory labels per role — display fallback.
 const TERRITORY_SAMPLE = {
   [ROLES.SALES_OFFICER]: "Pune Zone 2",
   [ROLES.AREA_MANAGER]: "Maharashtra West",
@@ -36,61 +21,46 @@ const TERRITORY_SAMPLE = {
   [ROLES.SYSTEM_ADMIN]: "All Territories",
 };
 
-// DiceBear initials avatar (free for commercial use) as a fallback when
-// the user has no avatarUrl.
-function avatarFor(name = "User") {
-  const seed = encodeURIComponent(name);
-  return `https://api.dicebear.com/9.x/initials/svg?seed=${seed}&backgroundType=gradientLinear&fontWeight=600`;
-}
-
 const SessionContext = createContext(null);
 
 export function SessionProvider({ children }) {
-  const { data, status } = useNextAuthSession();
-  // In-memory only preview override (never persisted) — resets to the real
-  // role on every reload, so the authenticated role is always authoritative.
   const [previewRole, setPreviewRole] = useState(null);
 
-  // One-time cleanup of the legacy persisted override from the mock era.
-  useEffect(() => {
-    try {
-      localStorage.removeItem(LEGACY_DEV_ROLE_KEY);
-    } catch (e) {
-      /* ignore */
-    }
-  }, []);
-
-  const sessionUser = data?.user || null;
-  const realRole =
-    sessionUser?.role && ROLE_ORDER.includes(sessionUser.role)
-      ? sessionUser.role
-      : ROLES.AREA_MANAGER;
-
-  // The real authenticated role is the default; a preview override (from the
-  // dev role switcher) only lasts for the current page session.
+  const sessionUser = {
+    id: "mock-distributor-admin",
+    name: "Arkalal Chakravarty",
+    email: "arkalal@distributor.com",
+    role: ROLES.DISTRIBUTOR_ADMIN,
+    territory: "distributor-territory",
+    avatar:
+      "https://api.dicebear.com/9.x/initials/svg?seed=AC&backgroundType=gradientLinear&fontWeight=600",
+  };
+  const realRole = ROLES.DISTRIBUTOR_ADMIN;
   const role = previewRole || realRole;
 
   const setRole = (next) => setPreviewRole(next);
 
-  const name = sessionUser?.name || "Signed-in user";
+  const name = sessionUser.name;
   const user = {
-    id: sessionUser?.id || role,
+    id: sessionUser.id,
     role,
     name,
     title: ROLE_META[role]?.label || "User",
     territory: TERRITORY_SAMPLE[role] || "—",
-    email: sessionUser?.email || "",
-    avatar: sessionUser?.avatar || avatarFor(name),
+    email: sessionUser.email,
+    avatar: sessionUser.avatar,
   };
 
   const value = {
-    ready: status !== "loading",
+    ready: true, // Always ready — no auth to wait for
     role,
     setRole,
     roles: ROLE_ORDER,
     user,
-    // End the real NextAuth session and return to /login.
-    signOut: () => nextAuthSignOut({ callbackUrl: "/login" }),
+    signOut: () => {
+      // No-op in prototype mode
+      console.log("Sign out bypassed in prototype mode");
+    },
   };
 
   return (
