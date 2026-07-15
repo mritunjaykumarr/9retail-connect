@@ -39,7 +39,7 @@
   &__content-inner {
     max-width: 1440px;
     margin-inline: auto;
-    padding: $space-8 $space-6;
+    // padding: $space-8 $space-6;
 
     @media (max-width: 640px) {
       padding: $space-5 $space-4;
@@ -53,6 +53,7 @@
     z-index: $z-overlay - 1;
     background: var(--scrim);
     backdrop-filter: blur(1px);
+
     @media (min-width: 1025px) {
       display: none;
     }
