@@ -1,4 +1,4 @@
-@use "../../../../../styles/mixins" as *;
+@use "../../../../styles/mixins" as *;
 
 .container {
   display: flex;
@@ -8,7 +8,7 @@
   min-height: calc(100vh - 64px);
 }
 
-/* ── Page Header ────────────────────────── */
+/* ── Page Header ─────────────────────────────── */
 .header {
   @include flex-between;
   gap: var(--space-4);
@@ -81,8 +81,8 @@
   flex-shrink: 0;
 }
 
-/* ── Spend Summary Banner ────────────────────── */
-.spendBanner {
+/* ── Model Confidence Banner ─────────────────── */
+.modelBanner {
   display: flex;
   align-items: center;
   gap: var(--space-5);
@@ -97,7 +97,7 @@
   }
 }
 
-.bannerItem {
+.modelItem {
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -105,7 +105,7 @@
   min-width: 0;
 }
 
-.bannerIcon {
+.modelItemIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -117,27 +117,27 @@
   line-height: 0;
 }
 
-.bannerIcon--green {
+.modelItemIcon--green {
   background: var(--success-soft);
   color: var(--success);
 }
 
-.bannerIcon--blue {
+.modelItemIcon--blue {
   background: var(--primary-soft);
   color: var(--primary);
 }
 
-.bannerIcon--amber {
+.modelItemIcon--amber {
   background: var(--warning-soft);
   color: var(--warning);
 }
 
-.bannerIcon--purple {
+.modelItemIcon--purple {
   background: hsl(280 60% 94%);
   color: hsl(280 60% 48%);
 }
 
-.bannerText {
+.modelItemText {
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -155,7 +155,7 @@
   }
 }
 
-.bannerSep {
+.modelSep {
   width: 1px;
   height: 32px;
   background: var(--border);
@@ -175,96 +175,10 @@
   gap: var(--space-6);
 }
 
-/* ── Offer Type Cards (like tier cards) ──────── */
-.offerTypeGrid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-
-  @media (max-width: 1024px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
-  }
-}
-
-.offerCard {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-5);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
-  background: var(--surface);
-  position: relative;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-
-  &:hover {
-    border-color: var(--primary);
-    box-shadow: var(--shadow-md);
-  }
-}
-
-.offerCard--active {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 2px var(--primary-soft);
-}
-
-.offerHeader {
-  @include flex-between;
-}
-
-.offerLabel {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--text-1);
-}
-
-.offerValue {
-  font-size: var(--text-h2);
-  font-weight: 700;
-  color: var(--text-1);
-  @include tabular-nums;
-
-  span {
-    font-size: var(--text-sm);
-    font-weight: 400;
-    color: var(--text-3);
-  }
-}
-
-.offerMeta {
-  display: flex;
-  gap: var(--space-4);
-}
-
-.offerMetaItem {
-  display: flex;
-  flex-direction: column;
-
-  span:first-child {
-    font-size: var(--text-xs);
-    color: var(--text-3);
-  }
-
-  span:last-child {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text-1);
-    @include tabular-nums;
-  }
-}
-
-/* ── Top Grid (chart + side) ─────────────────── */
+/* ── Top Grid (main chart + side panels) ─────── */
 .topGrid {
   display: grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: 1.8fr 1fr;
   gap: var(--space-6);
 
   @media (max-width: 1024px) {
@@ -278,7 +192,64 @@
   gap: var(--space-4);
 }
 
-/* ── Middle Grid (3-col) ─────────────────────── */
+/* ── SKU Heatmap Panel ───────────────────────── */
+.heatmapGrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-2);
+}
+
+.heatmapCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-3) var(--space-2);
+  border-radius: var(--radius-md);
+  text-align: center;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: default;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.heatmapCell--danger {
+  background: var(--danger-soft);
+  border: 1px solid hsl(0 60% 85%);
+}
+.heatmapCell--warning {
+  background: var(--warning-soft);
+  border: 1px solid hsl(40 80% 80%);
+}
+.heatmapCell--success {
+  background: var(--success-soft);
+  border: 1px solid hsl(150 40% 80%);
+}
+.heatmapCell--neutral {
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+}
+
+.heatVal {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-1);
+  @include tabular-nums;
+}
+
+.heatLabel {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-2);
+  margin-top: 2px;
+  @include truncate;
+  max-width: 100%;
+}
+
+/* ── Middle Grid (donut + accuracy + alerts) ── */
 .middleGrid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -289,300 +260,11 @@
   }
 }
 
-/* ── Top Offers Ranked List ──────────────────── */
-.rankedList {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.rankedItem {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--border-subtle);
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.rankedRank {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  border-radius: var(--radius-md);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  @include tabular-nums;
-}
-
-.rankedRank--gold {
-  background: hsl(45 90% 90%);
-  color: hsl(35 80% 35%);
-}
-
-.rankedRank--silver {
-  background: hsl(210 10% 90%);
-  color: hsl(210 10% 40%);
-}
-
-.rankedRank--bronze {
-  background: hsl(25 50% 88%);
-  color: hsl(25 50% 38%);
-}
-
-.rankedRank--default {
-  background: var(--surface-sunken);
-  color: var(--text-3);
-}
-
-.rankedInfo {
-  flex: 1;
-  min-width: 0;
-
-  strong {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text-1);
-    @include truncate;
-  }
-
-  span {
-    display: block;
-    font-size: var(--text-xs);
-    color: var(--text-3);
-  }
-}
-
-.rankedScore {
-  font-size: var(--text-sm);
-  font-weight: 700;
-  @include tabular-nums;
-  flex-shrink: 0;
-}
-
-/* ── Budget Utilization Meters ───────────────── */
-.meterList {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
-
-.meterRow {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
-
-.meterLabel {
-  @include flex-between;
-
-  span:first-child {
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--text-1);
-  }
-
-  span:last-child {
-    font-size: var(--text-sm);
-    font-weight: 600;
-    @include tabular-nums;
-  }
-}
-
-.meterTrack {
-  height: 8px;
-  border-radius: 4px;
-  background: var(--surface-sunken);
-  overflow: hidden;
-}
-
-.meterFill {
-  height: 100%;
-  border-radius: 4px;
-  transition: width 0.4s ease;
-}
-
-/* ── Insight Feed ────────────────────────────── */
-.insightList {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  max-height: 300px;
-  overflow-y: auto;
-  @include custom-scrollbar;
-}
-
-.insightItem {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-3) 0;
-  border-bottom: 1px solid var(--border-subtle);
-  cursor: pointer;
-  transition: background 0.12s ease;
-
-  &:hover {
-    background: var(--surface-hover);
-    margin-inline: calc(-1 * var(--space-3));
-    padding-inline: var(--space-3);
-    border-radius: var(--radius-md);
-  }
-
-  &:last-child {
-    border-bottom: none;
-  }
-}
-
-.insightIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  border-radius: var(--radius-md);
-  font-size: 0.85rem;
-  line-height: 0;
-}
-
-.insightIcon--success {
-  background: var(--success-soft);
-  color: var(--success);
-}
-
-.insightIcon--warning {
-  background: var(--warning-soft);
-  color: var(--warning);
-}
-
-.insightIcon--danger {
-  background: var(--danger-soft);
-  color: var(--danger);
-}
-
-.insightIcon--info {
-  background: var(--primary-soft);
-  color: var(--primary);
-}
-
-.insightBody {
-  flex: 1;
-  min-width: 0;
-
-  strong {
-    display: block;
-    font-size: var(--text-sm);
-    font-weight: 600;
-    color: var(--text-1);
-    @include truncate;
-  }
-
-  span {
-    display: block;
-    font-size: var(--text-xs);
-    color: var(--text-3);
-    margin-top: 2px;
-  }
-}
-
-/* ── Table Section ───────────────────────────── */
-.tableToolbar {
-  @include flex-between;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-}
-
-.tableToolbarLeft {
-  display: flex;
-  flex-direction: column;
-}
-
-.tableToolbarRight {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-}
-
-.chipRow {
-  display: flex;
-  gap: var(--space-2);
-  flex-wrap: wrap;
-}
-
-.searchBox {
-  position: relative;
-  width: 280px;
-
-  input {
-    width: 100%;
-    height: 38px;
-    padding-left: var(--space-10);
-    padding-right: var(--space-4);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    background: var(--surface-sunken);
-    color: var(--text-1);
-    font-size: var(--text-sm);
-    transition: border-color 0.15s ease;
-
-    &:focus {
-      outline: none;
-      border-color: var(--primary);
-    }
-  }
-
-  svg {
-    position: absolute;
-    left: 12px;
-    top: 11px;
-    color: var(--text-3);
-  }
-}
-
-/* ── Inline bar (table cell) ─────────────────── */
-.inlineBar {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  width: 100%;
-}
-
-.barTrack {
-  flex: 1;
-  height: 6px;
-  border-radius: 3px;
-  background: var(--surface-sunken);
-  overflow: hidden;
-}
-
-.barFill {
-  height: 100%;
-  border-radius: 3px;
-  transition: width 0.3s ease;
-}
-
-.barLabel {
-  font-size: var(--text-xs);
-  font-weight: 600;
-  color: var(--text-1);
-  @include tabular-nums;
-  width: 40px;
-  text-align: right;
-  flex-shrink: 0;
-}
-
-/* ── ROI gauge (semi-circle in a card) ───────── */
+/* ── Accuracy gauge ──────────────────────────── */
 .gaugeWrap {
   @include flex-center(column);
   gap: var(--space-4);
-  padding: var(--space-4) 0;
+  padding: var(--space-6) 0;
 }
 
 .gaugeRing {
@@ -629,6 +311,249 @@
   span:last-child {
     font-size: var(--text-xs);
     color: var(--text-3);
+  }
+}
+
+/* ── Alert list (scrollable) ─────────────────── */
+.alertList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  @include custom-scrollbar;
+}
+
+.alertItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border-subtle);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.alertIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  line-height: 0;
+}
+
+.alertIcon--danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.alertIcon--warning {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+.alertIcon--info {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.alertBody {
+  flex: 1;
+  min-width: 0;
+
+  strong {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-1);
+    @include truncate;
+  }
+
+  span {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--text-3);
+    margin-top: 2px;
+  }
+}
+
+/* ── Bottom Table Section ────────────────────── */
+.tableSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.tableToolbar {
+  @include flex-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.tableToolbarLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableToolbarRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.searchBox {
+  position: relative;
+  width: 280px;
+
+  input {
+    width: 100%;
+    height: 38px;
+    padding-left: var(--space-10);
+    padding-right: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface-sunken);
+    color: var(--text-1);
+    font-size: var(--text-sm);
+    transition: border-color 0.15s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  }
+
+  svg {
+    position: absolute;
+    left: 12px;
+    top: 11px;
+    color: var(--text-3);
+  }
+}
+
+.chipRow {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* ── Inline progress bar (in table cells) ────── */
+.inlineBar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.barTrack {
+  flex: 1;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--surface-sunken);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.barLabel {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-1);
+  @include tabular-nums;
+  width: 36px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ── Scenario Comparison Strip ───────────────── */
+.scenarioStrip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4);
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.scenarioCard {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  position: relative;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.scenarioCard--active {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-soft);
+}
+
+.scenarioHeader {
+  @include flex-between;
+}
+
+.scenarioLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-1);
+}
+
+.scenarioValue {
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--text-1);
+  @include tabular-nums;
+
+  span {
+    font-size: var(--text-sm);
+    font-weight: 400;
+    color: var(--text-3);
+  }
+}
+
+.scenarioMeta {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.scenarioMetaItem {
+  display: flex;
+  flex-direction: column;
+
+  span:first-child {
+    font-size: var(--text-xs);
+    color: var(--text-3);
+  }
+
+  span:last-child {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-1);
+    @include tabular-nums;
   }
 }
 
@@ -690,9 +615,24 @@
   margin-top: 4px;
 }
 
+/* ── Donut layout ────────────────────────────── */
 .donutLayout {
   @include flex-center;
   flex-direction: column;
   padding: var(--space-6);
   height: 100%;
+}
+
+/* ── Stats Grid ──────────────────────────────── */
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
 }
