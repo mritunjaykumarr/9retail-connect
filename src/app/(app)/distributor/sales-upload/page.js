@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { 
+  FiUpload,
   FiUploadCloud, 
   FiFileText, 
   FiAlertTriangle, 
@@ -114,8 +115,17 @@ export default function SalesUploadPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerTitle}>
-          <h2>Inventory &amp; Sales Data Manual Upload</h2>
-          <p>Import and map your secondary sales data into the RetailConnect network.</p>
+          <span className={styles.pageHeaderIcon} aria-hidden="true">
+            <FiUpload />
+          </span>
+          <div className={styles.titleContent}>
+            <div className={styles.eyebrow}>
+              <span>Data Integration</span>
+              <Badge tone="primary" variant="soft" size="sm">In build</Badge>
+            </div>
+            <h2>Inventory &amp; Sales Data Manual Upload</h2>
+            <p>Import and map your secondary sales data into the RetailConnect network.</p>
+          </div>
         </div>
         <Button variant="outline" leadingIcon={<FiCornerDownLeft />} onClick={onBackToDashboard}>
           Back to Dashboard

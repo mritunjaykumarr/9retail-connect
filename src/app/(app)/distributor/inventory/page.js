@@ -80,9 +80,19 @@ export default function InventoryPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <span className={styles.distributorLabel}>Distributor Portal</span>
-        <h2>Inventory Overview</h2>
-        <p className={styles.subtitle}>Real-time stock on hand and Safety Stock compliance metrics.</p>
+        <div className={styles.headerTitle}>
+          <span className={styles.pageHeaderIcon} aria-hidden="true">
+            <FiPackage />
+          </span>
+          <div className={styles.titleContent}>
+            <div className={styles.eyebrow}>
+              <span>Distributor Portal</span>
+              <Badge tone="primary" variant="soft" size="sm">In build</Badge>
+            </div>
+            <h2>Inventory Overview</h2>
+            <p className={styles.subtitle}>Real-time stock on hand and Safety Stock compliance metrics.</p>
+          </div>
+        </div>
       </div>
 
       <div className={styles.statsGrid}>

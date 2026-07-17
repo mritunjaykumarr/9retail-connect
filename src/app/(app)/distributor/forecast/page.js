@@ -2,7 +2,7 @@
 
 import React from "react";
 import { FiTrendingUp, FiLayers, FiInfo } from "react-icons/fi";
-import { StatCard, Card, CardBody, AreaChart, Select } from "../../../../../components/ui";
+import { StatCard, Card, CardBody, AreaChart, Select, Badge } from "../../../../../components/ui";
 import styles from "./page.module.scss";
 
 export default function ForecastPage() {
@@ -17,10 +17,18 @@ export default function ForecastPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.titleArea}>
-          <span className={styles.distributorLabel}>AI Projections</span>
-          <h2>Stock Demand Forecast</h2>
-          <p className={styles.subtitle}>AI-powered replenishment projections and safety stock triggers.</p>
+        <div className={styles.headerTitle}>
+          <span className={styles.pageHeaderIcon} aria-hidden="true">
+            <FiTrendingUp />
+          </span>
+          <div className={styles.titleContent}>
+            <div className={styles.eyebrow}>
+              <span>AI Projections</span>
+              <Badge tone="primary" variant="soft" size="sm">In build</Badge>
+            </div>
+            <h2>Stock Demand Forecast</h2>
+            <p className={styles.subtitle}>AI-powered replenishment projections and safety stock triggers.</p>
+          </div>
         </div>
       </div>
 

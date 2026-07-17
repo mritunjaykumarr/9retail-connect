@@ -10,7 +10,8 @@ import {
   FiPrinter, 
   FiEye,
   FiFileText,
-  FiAlertCircle
+  FiAlertCircle,
+  FiClipboard
 } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { 
@@ -226,9 +227,17 @@ export default function ReconciliationPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerTitle}>
-          <span className={styles.distributorLabel}>Claims Settlement</span>
-          <h2>Returns &amp; Claims Reconciliation</h2>
-          <p>Verify retailer damage/expiry returns and issue settled credit notes.</p>
+          <span className={styles.pageHeaderIcon} aria-hidden="true">
+            <FiClipboard />
+          </span>
+          <div className={styles.titleContent}>
+            <div className={styles.eyebrow}>
+              <span>Claims Settlement</span>
+              <Badge tone="primary" variant="soft" size="sm">In build</Badge>
+            </div>
+            <h2>Returns &amp; Claims Reconciliation</h2>
+            <p>Verify retailer damage/expiry returns and issue settled credit notes.</p>
+          </div>
         </div>
         <Button variant="outline" leadingIcon={<FiCornerDownLeft />} onClick={onBackToDashboard}>
           Back to Dashboard

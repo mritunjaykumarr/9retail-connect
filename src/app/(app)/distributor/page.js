@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { FiInbox, FiDollarSign, FiPackage, FiTruck, FiChevronRight } from "react-icons/fi";
+import { FiInbox, FiDollarSign, FiPackage, FiTruck, FiChevronRight, FiPieChart } from "react-icons/fi";
 import { 
   StatCard, 
   Card, 
   CardBody, 
   Table, 
   Badge, 
+  Modal, 
+  Input,
   Button, 
   Donut
 } from "../../../../components/ui";
@@ -65,9 +67,17 @@ export default function DistributorDashboard() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerTitle}>
-          <span className={styles.distributorLabel}>Distributor Portal</span>
-          <h2>All distributors</h2>
-          <p className={styles.subtitle}>Rolled up across 6 distributors in your scope.</p>
+          <span className={styles.pageHeaderIcon} aria-hidden="true">
+            <FiInbox />
+          </span>
+          <div className={styles.titleContent}>
+            <div className={styles.eyebrow}>
+              <span>Distributor Portal</span>
+              <Badge tone="primary" variant="soft" size="sm">In build</Badge>
+            </div>
+            <h2>All distributors</h2>
+            <p className={styles.subtitle}>Rolled up across 6 distributors in your scope.</p>
+          </div>
         </div>
         <button type="button" className={styles.nationalViewBtn}>
           <span className={styles.statusDot} />
@@ -108,9 +118,14 @@ export default function DistributorDashboard() {
         {/* Order Inbox card */}
         <Card>
           <div className={styles.cardHeader}>
-            <div>
-              <h3>Order inbox</h3>
-              <p className={styles.cardSubtitle}>Secondary orders waiting on your warehouse</p>
+            <div className={styles.cardHeaderTitle}>
+              <span className={styles.cardHeaderIcon} aria-hidden="true">
+                <FiInbox />
+              </span>
+              <div>
+                <h3>Order inbox</h3>
+                <p className={styles.cardSubtitle}>Secondary orders waiting on your warehouse</p>
+              </div>
             </div>
             <a className={styles.linkText} href="/distributor">
               Open Inbox
@@ -129,9 +144,14 @@ export default function DistributorDashboard() {
         {/* Stock Coverage card */}
         <Card>
           <div className={styles.cardHeader}>
-            <div>
-              <h3>Stock coverage</h3>
-              <p className={styles.cardSubtitle}>SKUs above vs below reorder level</p>
+            <div className={styles.cardHeaderTitle}>
+              <span className={styles.cardHeaderIcon} aria-hidden="true">
+                <FiPieChart />
+              </span>
+              <div>
+                <h3>Stock coverage</h3>
+                <p className={styles.cardSubtitle}>SKUs above vs below reorder level</p>
+              </div>
             </div>
           </div>
           <CardBody className={styles.cardBody}>

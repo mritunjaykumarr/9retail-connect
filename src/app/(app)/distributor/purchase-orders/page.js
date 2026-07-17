@@ -4,6 +4,7 @@ import { useState } from "react";
 import { 
   FiShoppingBag, 
   FiSearch, 
+  FiFileText,
   FiFilter, 
   FiCheck, 
   FiX, 
@@ -251,9 +252,17 @@ export default function PurchaseOrdersPage() {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerTitle}>
-          <span className={styles.distributorLabel}>Fulfillment Center</span>
-          <h2>Purchase Orders Management</h2>
-          <p>Review, accept, reject or stage sales officer bookings for delivery dispatch.</p>
+          <span className={styles.pageHeaderIcon} aria-hidden="true">
+            <FiFileText />
+          </span>
+          <div className={styles.titleContent}>
+            <div className={styles.eyebrow}>
+              <span>Fulfillment Center</span>
+              <Badge tone="primary" variant="soft" size="sm">In build</Badge>
+            </div>
+            <h2>Purchase Orders Management</h2>
+            <p>Review, accept, reject or stage sales officer bookings for delivery dispatch.</p>
+          </div>
         </div>
         <Button variant="outline" leadingIcon={<FiCornerDownLeft />} onClick={onBackToDashboard}>
           Back to Dashboard

@@ -58,12 +58,15 @@ export default function UploadErrorsPage() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <div className={styles.titleSection}>
-          <button className={styles.backBtn} onClick={onBackToUpload}>
-            <FiArrowLeft size={16} />
-          </button>
-          <div>
-            <span className={styles.distributorLabel}>Upload Diagnostics</span>
+        <div className={styles.headerTitle}>
+          <span className={styles.pageHeaderIcon} aria-hidden="true">
+            <FiAlertTriangle />
+          </span>
+          <div className={styles.titleContent}>
+            <div className={styles.eyebrow}>
+              <span>Upload Diagnostics</span>
+              <Badge tone="primary" variant="soft" size="sm">In build</Badge>
+            </div>
             <h2>Upload Validation Errors</h2>
             <p className={styles.subtitle}>Please resolve these data integrity warnings before committing records.</p>
           </div>

@@ -1,0 +1,331 @@
+@use "../../styles/mixins" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $space-6;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-6;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kpiCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  transition: border-color $duration-fast $ease-standard;
+
+  &:hover {
+    border-color: var(--border-strong);
+  }
+
+  .cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .kpiTitle {
+      font-size: var(--text-caption);
+      color: var(--text-3);
+      font-weight: $weight-semibold;
+      text-transform: uppercase;
+      letter-spacing: $tracking-wide;
+    }
+
+    .iconWrapper {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-md);
+      @include flex-center;
+      background: var(--surface-sunken);
+      color: var(--text-2);
+    }
+  }
+
+  .kpiValue {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: $weight-bold;
+    color: var(--text-1);
+    letter-spacing: $tracking-tight;
+    @include tabular-nums;
+  }
+
+  .cardFooter {
+    font-size: var(--text-caption);
+    
+    .changeText {
+      font-weight: $weight-semibold;
+      
+      &.positive {
+        color: var(--success);
+      }
+      &.negative {
+        color: var(--danger);
+      }
+    }
+  }
+
+  &.cobalt .iconWrapper { color: var(--primary); background: color-mix(in srgb, var(--primary) 8%, transparent); }
+  &.emerald .iconWrapper { color: var(--success); background: color-mix(in srgb, var(--success) 8%, transparent); }
+  &.amber .iconWrapper { color: var(--warning); background: color-mix(in srgb, var(--warning) 8%, transparent); }
+  &.purple .iconWrapper { color: #8b5cf6; background: rgba(139, 92, 246, 0.08); }
+}
+
+.mapGrid {
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: $space-6;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mapCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.mapHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .sectionTitle {
+    font-size: var(--text-lg);
+    font-weight: $weight-bold;
+    color: var(--text-1);
+  }
+
+  .liveBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: $space-2;
+    background: color-mix(in srgb, var(--success) 8%, transparent);
+    color: var(--success);
+    font-size: var(--text-caption);
+    font-weight: $weight-semibold;
+    padding: $space-1 $space-3;
+    border-radius: var(--radius-pill);
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 1.5s infinite $ease-standard;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.6; }
+}
+
+.mapWorkspace {
+  height: 380px;
+  background: var(--surface-sunken);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+  @include flex-center;
+}
+
+.vectorMap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.mapNode {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+
+  .pinIcon {
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    transition: transform $duration-fast $ease-standard;
+  }
+
+  &:hover {
+    .pinIcon {
+      transform: scale(1.2) translateY(-2px);
+    }
+    
+    .nodeTooltip {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-10px);
+    }
+  }
+
+  &.nodeProfitable {
+    color: var(--primary);
+  }
+
+  &.nodeWarning {
+    color: var(--warning);
+  }
+}
+
+.nodeTooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-md);
+  padding: $space-2 $space-3;
+  border-radius: var(--radius-md);
+  font-size: var(--text-caption);
+  color: var(--text-2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 130px;
+  white-space: nowrap;
+  z-index: 10;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity $duration-fast $ease-standard,
+    visibility $duration-fast $ease-standard,
+    transform $duration-fast $ease-standard;
+
+  strong {
+    color: var(--text-1);
+    font-weight: $weight-bold;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 2px;
+    margin-bottom: 2px;
+  }
+}
+
+.regionListCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: $space-6;
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+
+  .sectionTitle {
+    font-size: var(--text-lg);
+    font-weight: $weight-bold;
+    color: var(--text-1);
+  }
+}
+
+.regionList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+}
+
+.regionItem {
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: $space-4;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+
+  .regionHeader {
+    display: flex;
+    align-items: center;
+    gap: $space-2;
+
+    .colorIndicator {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .regionName {
+      font-weight: $weight-semibold;
+      color: var(--text-1);
+      font-size: var(--text-sm);
+      flex: 1;
+    }
+
+    .statusBadge {
+      font-size: var(--text-caption);
+      font-weight: $weight-bold;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &.success {
+        background: color-mix(in srgb, var(--success) 8%, transparent);
+        color: var(--success);
+      }
+
+      &.warning {
+        background: color-mix(in srgb, var(--warning) 8%, transparent);
+        color: var(--warning);
+      }
+    }
+  }
+
+  .regionMetrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $space-2;
+
+    .metric {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+
+      .label {
+        font-size: var(--text-caption);
+        color: var(--text-3);
+      }
+
+      .value {
+        font-size: var(--text-sm);
+        font-weight: $weight-bold;
+        color: var(--text-1);
+        font-family: var(--font-code);
+        @include tabular-nums;
+      }
+    }
+  }
+}

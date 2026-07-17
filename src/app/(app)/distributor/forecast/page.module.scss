@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
-  padding: var(--space-6);
   background: var(--bg);
   min-height: calc(100vh - 64px);
 }
@@ -14,10 +13,29 @@
   flex-direction: column;
   margin-bottom: var(--space-2);
   
-  .titleArea {
+  .headerTitle {
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    align-items: flex-start;
+    gap: var(--space-4);
+
+    .pageHeaderIcon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      border-radius: var(--radius-lg);
+      background: var(--primary-soft);
+      color: var(--primary-text);
+      font-size: 1.5rem;
+      line-height: 0;
+    }
+
+    .titleContent {
+      display: flex;
+      flex-direction: column;
+    }
   }
   
   h2 {
@@ -142,10 +160,12 @@
   min-height: 280px;
 }
 
-.distributorLabel {
-  font-size: var(--text-overline);
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--primary-text);
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-1);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--text-3);
 }
