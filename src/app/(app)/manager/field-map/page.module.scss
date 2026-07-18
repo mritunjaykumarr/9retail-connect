@@ -1,0 +1,603 @@
+@use "../../../../../styles/mixins" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  background: var(--bg);
+  height: calc(100vh - 100px);
+  min-height: 580px;
+}
+
+/* ── Page Header ─────────────────────────────── */
+.header {
+  @include flex-between;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  .pageHeaderIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+    background: var(--primary-soft);
+    color: var(--primary-text);
+    font-size: 1.5rem;
+    line-height: 0;
+  }
+
+  .titleContent {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-1);
+    line-height: 1.2;
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: var(--space-1);
+    max-width: 60ch;
+    font-size: var(--text-sm);
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--text-3);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+/* ── Main Dashboard Layout ───────────────────── */
+.mainLayout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: var(--space-5);
+  min-height: 0; // critical for vertical overflow scrolls
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Left Sidebar (Sales Officers List) ───────── */
+.sidebar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.sidebarHeader {
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.searchBox {
+  position: relative;
+  width: 100%;
+
+  input {
+    width: 100%;
+    height: 38px;
+    padding-left: var(--space-10);
+    padding-right: var(--space-4);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface-sunken);
+    color: var(--text-1);
+    font-size: var(--text-sm);
+    transition: border-color 0.15s ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  }
+
+  svg {
+    position: absolute;
+    left: 12px;
+    top: 11px;
+    color: var(--text-3);
+  }
+}
+
+.filterChips {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.soList {
+  flex: 1;
+  overflow-y: auto;
+  @include custom-scrollbar;
+  padding: var(--space-2);
+}
+
+.soItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  border: 1px solid transparent;
+  margin-bottom: var(--space-1);
+
+  &:hover {
+    background: var(--surface-hover);
+  }
+}
+
+.soItem--active {
+  background: var(--primary-soft);
+  border-color: var(--primary-border);
+
+  &:hover {
+    background: var(--primary-soft);
+  }
+}
+
+.soMeta {
+  flex: 1;
+  min-width: 0;
+}
+
+.soNameRow {
+  @include flex-between;
+  margin-bottom: var(--space-1);
+
+  strong {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-1);
+    @include truncate;
+  }
+}
+
+.soSubtext {
+  font-size: var(--text-xs);
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.soMetricsRow {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-2);
+
+  span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    @include tabular-nums;
+  }
+}
+
+.deviceStats {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-overline);
+  color: var(--text-3);
+  margin-top: var(--space-1);
+
+  span {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+}
+
+/* ── Right Content Viewport ───────────────────── */
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  min-height: 0;
+}
+
+/* ── Interactive Map Container ────────────────── */
+.mapContainer {
+  flex: 1;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.mapVisual {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, var(--border-subtle) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--border-subtle) 1px, transparent 1px);
+}
+
+.mapStreet {
+  position: absolute;
+  background: var(--border-strong);
+  opacity: 0.45;
+}
+
+/* Street Map Simulation lines */
+.mapStreet--h1 { top: 30%; left: 0; width: 100%; height: 8px; }
+.mapStreet--h2 { top: 65%; left: 0; width: 100%; height: 8px; }
+.mapStreet--v1 { left: 25%; top: 0; width: 8px; height: 100%; }
+.mapStreet--v2 { left: 70%; top: 0; width: 8px; height: 100%; }
+.mapStreet--diagonal {
+  left: 10%; top: 10%; width: 120%; height: 8px;
+  transform: rotate(25deg);
+  transform-origin: top left;
+}
+
+/* Map Pins */
+.mapPin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s ease;
+
+  &:hover {
+    transform: translate(-50%, -50%) scale(1.18);
+    z-index: 20;
+  }
+}
+
+.mapPin--active {
+  z-index: 30;
+}
+
+/* Pulser ring for checking-in / active pins */
+.pulseRing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulseOut 2s infinite ease-out;
+  pointer-events: none;
+}
+
+.pulseRing--green {
+  border: 2px solid var(--success);
+}
+.pulseRing--blue {
+  border: 2px solid var(--primary);
+}
+
+@keyframes pulseOut {
+  0% {
+    width: 24px;
+    height: 24px;
+    opacity: 0.8;
+  }
+  100% {
+    width: 64px;
+    height: 64px;
+    opacity: 0;
+  }
+}
+
+.retailerPin {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.retailerPin--success { background: var(--success); }
+.retailerPin--warning { background: var(--warning); }
+.retailerPin--danger { background: var(--danger); }
+.retailerPin--neutral { background: var(--text-3); }
+
+.soPin {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2.5px solid var(--surface);
+  background: var(--surface);
+  box-shadow: var(--shadow-lg);
+  @include flex-center;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.soPin--active {
+  border-color: var(--primary);
+}
+
+.pinLabel {
+  position: absolute;
+  top: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  font-size: var(--text-overline);
+  font-weight: 700;
+  color: var(--text-1);
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+}
+
+/* Map Controls Floating Strip */
+.mapControls {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  display: flex;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-md);
+  z-index: 40;
+}
+
+.controlBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-1);
+  @include flex-center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--surface-hover);
+    color: var(--primary);
+  }
+}
+
+.controlBtn--active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+
+  &:hover {
+    background: var(--primary);
+    color: #fff;
+  }
+}
+
+/* Map Legends Floating Strip */
+.mapLegends {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-sm);
+  z-index: 40;
+
+  :global(.dark) & {
+    background: rgba(30, 30, 34, 0.95);
+  }
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  color: var(--text-2);
+
+  span {
+    display: inline-block;
+  }
+}
+
+/* ── Live Check-In Ticker Feed ────────────────── */
+.tickerFeed {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+  overflow: hidden;
+  height: 52px;
+}
+
+.tickerTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--text-1);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.tickerList {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.tickerItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--text-2);
+  height: 100%;
+  animation: slideInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  min-width: 0;
+
+  strong {
+    color: var(--text-1);
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tickerText {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-2);
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@keyframes slideInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Drawer details timeline ─────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+}
+
+.timelineItem {
+  display: flex;
+  gap: var(--space-4);
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 17px;
+    top: 36px;
+    bottom: -16px;
+    width: 2px;
+    background: var(--border-subtle);
+  }
+
+  &:last-child::before {
+    display: none;
+  }
+}
+
+.timelineIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--surface-sunken);
+  color: var(--text-3);
+  @include flex-center;
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  border: 1px solid var(--border);
+  z-index: 5;
+}
+
+.timelineIcon--success {
+  background: var(--success-soft);
+  color: var(--success);
+}
+.timelineIcon--warning {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+.timelineIcon--danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+.timelineIcon--primary {
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.timelineContent {
+  flex: 1;
+  padding-top: 4px;
+
+  h5 {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-1);
+    margin-bottom: 2px;
+  }
+
+  span {
+    display: block;
+    font-size: var(--text-xs);
+    color: var(--text-3);
+    margin-bottom: var(--space-1);
+  }
+
+  p {
+    font-size: var(--text-sm);
+    color: var(--text-2);
+    line-height: 1.4;
+  }
+}
