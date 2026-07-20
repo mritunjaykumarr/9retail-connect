@@ -335,7 +335,14 @@ export default function ReconciliationPage() {
           <div className={styles.drawerBody}>
             <div className={styles.drawerStats}>
               <StatCard label="Estimated Value" value={selectedReturn.value} />
-              <StatCard label="Status" value={selectedReturn.status} />
+              <div className={styles.drawerStatusCard}>
+                <span className={styles.drawerStatusLabel}>Status</span>
+                <div className={styles.drawerStatusValue}>
+                  <Badge tone={getStatusTone(selectedReturn.status)} variant="soft" size="md" dot>
+                    {selectedReturn.status}
+                  </Badge>
+                </div>
+              </div>
             </div>
 
             <h4 className={styles.drawerSubTitle}>Claim Details</h4>

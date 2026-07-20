@@ -186,3 +186,29 @@
   padding: var(--space-6);
   height: 100%;
 }
+
+/* --- Global Mobile Responsiveness Overrides --- */
+@media (max-width: 768px) {
+  .header { flex-direction: column !important; align-items: stretch !important; }
+  .headerActions { flex-wrap: wrap !important; justify-content: flex-start !important; }
+  .statsGrid { grid-template-columns: 1fr !important; }
+  .actionHubGrid { grid-template-columns: 1fr !important; }
+  .healthBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .securityBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .demandBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .forecastHealthBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .scoreBadgeArea { border-right: none !important; border-bottom: 1px solid var(--border) !important; padding-right: 0 !important; padding-bottom: var(--space-4) !important; }
+  .bannerAlert { border-right: none !important; border-bottom: 1px solid var(--border) !important; padding-right: 0 !important; padding-bottom: var(--space-4) !important; }
+  .splitRow { grid-template-columns: 1fr !important; }
+  .mainLayout { grid-template-columns: 1fr !important; }
+  .toolbar { flex-direction: column !important; align-items: stretch !important; }
+  .toolbarLeft { flex-direction: column !important; align-items: stretch !important; }
+  .filterGroup { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; }
+  .tabPillGroup { flex-wrap: wrap !important; width: 100% !important; }
+  .detailsGrid { grid-template-columns: 1fr !important; }
+  .metricsGrid { grid-template-columns: 1fr !important; }
+  .summaryGrid { grid-template-columns: 1fr !important; }
+  .formGrid { grid-template-columns: 1fr !important; }
+  .searchBox { width: 100% !important; }
+  .searchBox input { width: 100% !important; }
+}

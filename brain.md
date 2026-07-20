@@ -2,8 +2,16 @@
 
 This document is the **authoritative Single Source of Truth (SSOT)** for all UI/UX design patterns, component architectures, styling tokens, page layouts, and development standards for the **RetailConnect SIP** platform.
 
-> **MANDATORY INSTRUCTION FOR ALL DEVELOPERS AND AI AGENTS:**  
-> Before designing or coding **ANY** new screen, component, or layout, you **MUST** read and follow the specifications outlined in this document. All pages must strictly replicate the established template structure, color palette, component usage, and responsive behavior to ensure 100% visual and functional uniformity across the entire platform.
+> **GOLDEN RULE OF BUSINESS-DRIVEN DESIGN CONSISTENCY (NOT REPETITION):**  
+> 1. **Reuse Design Tokens & Component Primitive System**: All pages MUST share the same visual design language, color tokens (`var(...)`), elevation layers, and UI component primitives (`Button`, `Badge`, `Drawer`, `Modal`, `Input`, `Select`, `StatCard`, `Table`, `Tabs`, `BarChart`, `Donut`, `Avatar`, `Chip`, `useToast`).  
+> 2. **Page Layouts MUST be Business-Driven, NOT Template-Driven**:  
+>    - **NO Mandatory Requirement for KPI Cards, Tables, or Charts**: If a table is not the best way to present information, DO NOT use one. If KPI cards do not add value, DO NOT include them. Choose the exact components that best communicate the data for that page.  
+>    - **NO Formulaic Clones**: Developers must NEVER blindly duplicate a rigid "4 StatCards + Tabs + Table + Chart" structure across pages. Every screen must have its own purpose-built information architecture based on real user workflows.  
+>    - **Domain-Specific Architectural Examples**:  
+>      - **Capacity vs Demand**: Plant capacity utilization heatmaps, demand forecast vs production capacity comparison panels, production bottleneck alerts, shift allocation progress gauges, and AI production planning recommendation cards.  
+>      - **Supplier Lead-Time**: Vendor SLA scorecards, risk radar cards, transit timeline cards, delay reason breakdowns, and vendor penalty drawer controls.  
+>      - **Demand Signals**: Market demand rollups, BOM ingredient stockout alerts, and batch allocation wizards.  
+> 3. **Goal**: Ensure 100% **design system consistency**, NOT **layout repetition or page duplication**.
 
 ---
 
@@ -14,25 +22,31 @@ RetailConnect SIP is an enterprise-grade Sales Information Platform (SIP) built 
 1. **Financial-Grade Precision**: Data, numbers, currencies, and timestamps must use tabular numerals (`font-family: var(--font-code)` / `.rc-tnum`) with exact, scannable formatting.
 2. **Layered Elevation Model**: Low-contrast, clean surfaces (`--bg` → `--surface` → `--surface-raised` → `--surface-sunken`). Borders are subtle 1px hairlines (`var(--border)`).
 3. **Intentional & Harmonious Color Palette**: Built on Cool Slate neutrals and rich Cobalt primary tones with strict semantic accents (Success Green, Warning Amber, Danger Red, Info Cyan).
-4. **Structured Information Architecture**: Every screen follows a predictable top-to-bottom rhythm: Page Header → Filter Toolbar → KPI StatCards Grid → Segmented Tabs → Main 2-Column Content Grid (`.tableSection` + `.chartCard`).
-5. **Zero Ad-Hoc Styling**: Developers must NEVER invent custom styles, ad-hoc inline colors, or duplicate components. Always consume semantic tokens and reusable components from `@/components/ui`.
+4. **Business-Driven Information Architecture**: Page structures adapt dynamically to their specific business purpose and user workflow. Never repeat formulaic layouts when card grids, utilization heatmaps, timelines, recommendation panels, or custom metric cards communicate the data better.
+5. **Zero Ad-Hoc Styling**: Developers must NEVER invent custom inline colors or duplicate CSS styles. Always consume semantic tokens and reusable components from `@/components/ui`.
 
 ---
 
-## 2. Standard Page Layout Architecture
+## 2. Flexible Page Architecture Blueprint
 
-Every page in RetailConnect SIP follows the exact structural layout below.
+Pages inherit the top header & filter toolbar for context, while the main content area adapts dynamically to the page's functional requirements.
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
 │ 1. PAGE HEADER                                                          │
-│  [Icon Box]  EYEBROW (Manager Dashboard [SIP])        [Header Actions]  │
-│              Page Title                                (Export, Sync)   │
+│  [Icon Box]  EYEBROW (Role Context [SIP])             [Header Actions]  │
+│              Page Title                                (Action / Export)│
 │              Page Description Subtitle                                  │
 ├─────────────────────────────────────────────────────────────────────────┤
-│ 2. FILTER TOOLBAR                                                       │
-│  Territory Zone: [ All Zones ▼ ]   Status: [ All Statuses ▼ ]           │
-
+│ 2. FILTER TOOLBAR (Contextual)                                          │
+│  Primary Filter: [ All ▼ ]    Secondary Filter: [ Status ▼ ]            │
+├─────────────────────────────────────────────────────────────────────────┤
+│ 3. BUSINESS-DRIVEN CONTENT COMPOSITION (Purpose-Built Layout)           │
+│  - Capacity Utilization Cards / Demand vs Capacity Comparison Panel     │
+│  - Bottleneck & Constraint Risk Alert Cards / Recommendation Engine     │
+│  - Shift Allocation Progress Gauges / Custom Dynamic Components         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
 
 ## 3. Design System Tokens & Foundations
 

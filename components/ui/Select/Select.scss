@@ -1,12 +1,21 @@
 .rc-select {
   position: relative;
   padding-right: 0;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 
   &__field {
     appearance: none;
     -webkit-appearance: none;
     padding-right: var(--space-8);
     cursor: pointer;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     &:disabled {
       cursor: not-allowed;
     }

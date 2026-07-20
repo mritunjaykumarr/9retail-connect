@@ -1,0 +1,396 @@
+@use "../../../../../styles/mixins" as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  gap: var(--space-5);
+  padding-bottom: var(--space-8);
+  overflow-y: auto;
+  @include custom-scrollbar;
+}
+
+/* ── Page Header ─────────────────────────────── */
+.header {
+  @include flex-between;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.headerTitle {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-4);
+
+  .pageHeaderIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: var(--radius-lg);
+    background: var(--primary-soft);
+    color: var(--primary-text);
+    font-size: 1.5rem;
+    line-height: 0;
+  }
+
+  .titleContent {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 700;
+    letter-spacing: var(--tracking-tight);
+    color: var(--text-1);
+    line-height: 1.2;
+    margin-top: 0;
+  }
+
+  p {
+    margin-top: var(--space-1);
+    max-width: 70ch;
+    font-size: var(--text-sm);
+    color: var(--text-2);
+    line-height: 1.5;
+  }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--space-1);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--text-3);
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+/* ── Territory Health Banner ─────────────────── */
+.healthBanner {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-5);
+  align-items: center;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    .bannerAlert {
+      border-right: none;
+      padding-right: 0;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: var(--space-4);
+    }
+  }
+}
+
+.bannerAlert {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding-right: var(--space-5);
+  border-right: 1px solid var(--border);
+
+  .alertIcon {
+    font-size: 2rem;
+    color: var(--warning);
+  }
+
+  .alertInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    strong {
+      font-size: var(--text-base);
+      color: var(--text-1);
+    }
+    span {
+      font-size: var(--text-sm);
+      color: var(--text-2);
+    }
+  }
+}
+
+.bannerStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+
+  .statCol {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+      font-size: var(--text-xs);
+      color: var(--text-3);
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    strong {
+      font-size: var(--text-lg);
+      color: var(--text-1);
+    }
+  }
+}
+
+.bannerAction {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* ── Main Layout (Tree + Details) ───────────── */
+.mainLayout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.treePanel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  min-height: 500px;
+}
+
+.treeHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-3);
+
+  h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--text-1);
+  }
+}
+
+.searchBox {
+  position: relative;
+  input {
+    height: 36px;
+    padding-left: 36px;
+    padding-right: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface-sunken);
+    font-size: var(--text-sm);
+    color: var(--text-1);
+    width: 100%;
+    &:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+  }
+  svg {
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    color: var(--text-3);
+  }
+}
+
+.treeList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow-y: auto;
+  max-height: 500px;
+  @include custom-scrollbar;
+}
+
+.treeNode {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--duration-fast);
+  
+  &:hover {
+    background: var(--surface-sunken);
+  }
+  
+  &.active {
+    background: var(--primary-soft);
+    .nodeName {
+      color: var(--primary-text);
+      font-weight: 600;
+    }
+  }
+
+  .nodeIcon {
+    color: var(--text-3);
+    display: flex;
+    align-items: center;
+  }
+  .nodeName {
+    font-size: var(--text-sm);
+    color: var(--text-2);
+  }
+  .nodeBadge {
+    margin-left: auto;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: var(--radius-pill);
+    background: var(--surface-sunken);
+    color: var(--text-3);
+  }
+}
+
+.detailsPanel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  min-height: 500px;
+}
+
+.detailsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: var(--space-4);
+
+  .territoryTitle {
+    h3 {
+      font-size: var(--text-lg);
+      font-weight: 600;
+      color: var(--text-1);
+      margin-bottom: var(--space-1);
+    }
+    p {
+      font-size: var(--text-sm);
+      color: var(--text-3);
+    }
+  }
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-5);
+}
+
+.detailCard {
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+
+  h4 {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-1);
+  }
+}
+
+.assignmentMeta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  
+  .assignmentInfo {
+    display: flex;
+    flex-direction: column;
+    strong {
+      font-size: var(--text-sm);
+      color: var(--text-1);
+    }
+    span {
+      font-size: var(--text-xs);
+      color: var(--text-3);
+    }
+  }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  color: var(--text-3);
+  gap: var(--space-3);
+  text-align: center;
+  
+  svg {
+    font-size: 3rem;
+    color: var(--border);
+  }
+  h3 {
+    font-size: var(--text-base);
+    color: var(--text-2);
+    font-weight: 600;
+  }
+  p {
+    font-size: var(--text-sm);
+    max-width: 300px;
+  }
+}
+
+/* --- Global Mobile Responsiveness Overrides --- */
+@media (max-width: 768px) {
+  .header { flex-direction: column !important; align-items: stretch !important; }
+  .headerActions { flex-wrap: wrap !important; justify-content: flex-start !important; }
+  .statsGrid { grid-template-columns: 1fr !important; }
+  .actionHubGrid { grid-template-columns: 1fr !important; }
+  .healthBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .securityBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .demandBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .forecastHealthBanner { grid-template-columns: 1fr !important; gap: var(--space-4) !important; }
+  .scoreBadgeArea { border-right: none !important; border-bottom: 1px solid var(--border) !important; padding-right: 0 !important; padding-bottom: var(--space-4) !important; }
+  .bannerAlert { border-right: none !important; border-bottom: 1px solid var(--border) !important; padding-right: 0 !important; padding-bottom: var(--space-4) !important; }
+  .splitRow { grid-template-columns: 1fr !important; }
+  .mainLayout { grid-template-columns: 1fr !important; }
+  .toolbar { flex-direction: column !important; align-items: stretch !important; }
+  .toolbarLeft { flex-direction: column !important; align-items: stretch !important; }
+  .filterGroup { flex-direction: column !important; align-items: flex-start !important; width: 100% !important; }
+  .tabPillGroup { flex-wrap: wrap !important; width: 100% !important; }
+  .detailsGrid { grid-template-columns: 1fr !important; }
+  .metricsGrid { grid-template-columns: 1fr !important; }
+  .summaryGrid { grid-template-columns: 1fr !important; }
+  .formGrid { grid-template-columns: 1fr !important; }
+  .searchBox { width: 100% !important; }
+  .searchBox input { width: 100% !important; }
+}

@@ -374,7 +374,14 @@ export default function PurchaseOrdersPage() {
           <div className={styles.drawerBody}>
             <div className={styles.drawerStats}>
               <StatCard label="Order Value" value={selectedOrder.value} />
-              <StatCard label="Status" value={selectedOrder.status} />
+              <div className={styles.drawerStatusCard}>
+                <span className={styles.drawerStatusLabel}>Status</span>
+                <div className={styles.drawerStatusValue}>
+                  <Badge tone={getStatusTone(selectedOrder.status)} variant="soft" size="md" dot>
+                    {selectedOrder.status}
+                  </Badge>
+                </div>
+              </div>
             </div>
 
             <h4 className={styles.drawerSubTitle}>Order Information</h4>

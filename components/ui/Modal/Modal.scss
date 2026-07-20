@@ -28,6 +28,7 @@
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-xl);
     overflow: hidden;
+    overflow-x: hidden;
 
     &--sm {
       max-width: 400px;
@@ -83,6 +84,7 @@
   &__body {
     padding: 0 var(--space-6) var(--space-6);
     overflow-y: auto;
+    overflow-x: hidden;
     @include custom-scrollbar;
     color: var(--text-2);
     font-size: var(--text-sm);
