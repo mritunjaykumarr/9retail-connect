@@ -87,7 +87,7 @@ export default function Table({
                     onClick={() => toggleSort(col)}
                   >
                     <span className="rc-table__th">
-                      <span>{col.header}</span>
+                      <span>{col.header || col.label}</span>
                       {col.sortable && (
                         <span className="rc-table__sort" aria-hidden="true">
                           {isSorted ? (
