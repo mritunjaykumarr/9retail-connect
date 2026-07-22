@@ -5,7 +5,7 @@ import {
   FiDatabase, FiSearch, FiDownload, FiRefreshCw, FiAlertCircle, FiEdit3, FiUploadCloud
 } from "react-icons/fi";
 import {
-  Button, Badge, Select, Table, Tabs, useToast
+  Button, Badge, Select, Table, Tabs, useToast, FileUpload
 } from "../../../../../components/ui";
 import styles from "./page.module.scss";
 
@@ -32,7 +32,7 @@ const mockRetailers = [
 export default function MasterDataPage() {
   const [activeTab, setActiveTab] = useState("products");
   const [searchQuery, setSearchQuery] = useState("");
-  const { toast } = useToast();
+  const toast = useToast();
 
   const handleExport = () => {
     toast?.({
@@ -219,8 +219,19 @@ export default function MasterDataPage() {
         </div>
         <div className={styles.headerActions}>
           <Button variant="outline" size="sm" leadingIcon={<FiDownload />} onClick={handleExport}>
-            Export Selected Registry
+            Export Registry
           </Button>
+          <div style={{ display: 'inline-block', width: '200px' }}>
+            <FileUpload 
+              compact 
+              folder="master-data-imports"
+              accept=".csv"
+              label="Bulk Import (CSV)"
+              onUploadSuccess={() => {
+                toast.success("Import Successful", { description: "CSV has been securely uploaded to Cloudflare R2 for processing." });
+              }}
+            />
+          </div>
           <Button variant="primary" size="sm" leadingIcon={<FiUploadCloud />} onClick={handleSync}>
             Force ERP Sync
           </Button>

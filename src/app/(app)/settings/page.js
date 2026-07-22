@@ -6,8 +6,9 @@ import {
   FiSave, FiRotateCcw, FiCheckCircle, FiLock, FiGlobe, FiSmartphone, FiTrash2, FiRefreshCw
 } from "react-icons/fi";
 import {
-  Button, Avatar, Badge, Tabs, Table, useToast
+  Button, Avatar, Badge, Tabs, Table, useToast, FileUpload
 } from "../../../../components/ui";
+import { useSession } from "../../../../components/shell/SessionProvider";
 import styles from "./page.module.scss";
 
 // Mock Active Sessions Data
@@ -19,11 +20,13 @@ const mockSessions = [
 
 export default function SettingsPage() {
   const [activeTab, setActiveTab] = useState("profile");
-  const { toast } = useToast();
+  const toast = useToast();
+  const { user, updateAvatar } = useSession();
 
   // Form State
   const [formData, setFormData] = useState({
     fullName: "Arkalal Chakravarty",
+    avatarUrl: null,
     email: "arkalal.c@retailconnect.io",
     phone: "+91 98765 43210",
     designation: "System Administrator & Lead Architect",
@@ -158,7 +161,7 @@ export default function SettingsPage() {
       {/* ── 2. Profile & Health Banner ─────────────────────────── */}
       <div className={styles.profileBanner}>
         <div className={styles.userCard}>
-          <Avatar fallback="AC" size="lg" />
+          <Avatar name={formData.fullName} fallback="AC" size="lg" src={formData.avatarUrl || user?.avatar} />
           <div className={styles.userInfo}>
             <strong>{formData.fullName}</strong>
             <span>{formData.designation}</span>
@@ -214,6 +217,23 @@ export default function SettingsPage() {
                   <h3><FiUser style={{ marginRight: 8 }} /> Personal Details</h3>
                   <p>Update your public profile, contact information, and organizational role.</p>
                 </div>
+              </div>
+              <div style={{ padding: "0 2rem", marginBottom: "1rem" }}>
+                <label style={{ display: "block", marginBottom: "0.5rem", fontWeight: 500, fontSize: "0.9rem", color: "#333" }}>
+                  Profile Picture
+                </label>
+                <FileUpload 
+                  compact 
+                  folder="avatars" 
+                  accept="image/png, image/jpeg, image/webp" 
+                  label="Upload new avatar" 
+                  onUploadSuccess={(fileData) => {
+                    const newAvatar = fileData.preview || fileData.url;
+                    setFormData(prev => ({ ...prev, avatarUrl: newAvatar }));
+                    if (updateAvatar) updateAvatar(newAvatar);
+                    toast.success("Avatar Updated", { description: "Your new profile picture has been securely saved to Cloudflare R2." });
+                  }}
+                />
               </div>
               <div className={styles.formGridTwoCol}>
                 <div className={styles.formField}>

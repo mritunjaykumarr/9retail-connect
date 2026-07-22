@@ -26,6 +26,7 @@ export {
   CardFooter,
 } from "./Card/Card";
 export { default as StatCard } from "./StatCard/StatCard";
+export { default as FileUpload } from "./FileUpload/FileUpload";
 export { default as Tabs } from "./Tabs/Tabs";
 export { default as Modal } from "./Modal/Modal";
 export { default as Drawer } from "./Drawer/Drawer";

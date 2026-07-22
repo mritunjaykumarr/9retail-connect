@@ -26,7 +26,8 @@ import {
   useToast,
   Card,
   CardBody,
-  Tabs
+  Tabs,
+  FileUpload
 } from "../../../../../components/ui";
 import styles from "./page.module.scss";
 
@@ -49,7 +50,7 @@ export default function ReconciliationPage() {
   const [rejectModalOpen, setRejectModalOpen] = useState(false);
   const [rejectionNote, setRejectionNote] = useState("");
   const [returnToReject, setReturnToReject] = useState(null);
-  const { toast } = useToast();
+  const toast = useToast();
 
   const tabs = ["All Returns", "Pending", "Approved", "Rejected"];
 
@@ -382,6 +383,19 @@ export default function ReconciliationPage() {
                 </div>
               </li>
             </ul>
+
+            <h4 className={styles.drawerSubTitle} style={{ marginTop: "2rem" }}>Attach Evidence (Images/PDFs)</h4>
+            <div style={{ marginTop: "1rem" }}>
+              <FileUpload 
+                compact 
+                folder="claims-evidence"
+                accept="image/*, application/pdf"
+                label="Upload Proof of Damage"
+                onUploadSuccess={() => {
+                  toast.success("Evidence Attached", { description: "File has been securely uploaded to Cloudflare R2 and attached to this claim." });
+                }}
+              />
+            </div>
           </div>
         )}
       </Drawer>

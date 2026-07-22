@@ -1,0 +1,118 @@
+.wrapper {
+  width: 100%;
+}
+
+.dropZone {
+  display: block;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fafafa;
+  width: 100%;
+
+  &:hover {
+    border-color: #f6821f;
+    background: #fffcf8;
+  }
+
+  &.uploading {
+    cursor: not-allowed;
+    border-color: #ccc;
+    background: #f5f5f5;
+  }
+
+  &.compact {
+    padding: 1.5rem 1rem;
+    
+    .content {
+      flex-direction: row;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .labelTitle {
+      font-size: 1rem;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .uploadIcon {
+    color: #666;
+  }
+
+  .successIcon {
+    color: #10b981;
+  }
+
+  .spinIcon {
+    color: #f6821f;
+    animation: spin 1s linear infinite;
+  }
+
+  .textStack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .labelTitle {
+    margin: 0;
+    font-size: 1.15rem;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: #888;
+    font-size: 0.9rem;
+  }
+}
+
+.errorMessage {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.previewContainer {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: inline-block;
+  border: 1px solid #eaeaea;
+
+  .previewImage {
+    max-width: 100%;
+    max-height: 150px;
+    display: block;
+    object-fit: cover;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

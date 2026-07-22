@@ -25,6 +25,7 @@ const SessionContext = createContext(null);
 
 export function SessionProvider({ children }) {
   const [previewRole, setPreviewRole] = useState(null);
+  const [userAvatar, setUserAvatar] = useState(null);
 
   const sessionUser = {
     id: "mock-distributor-admin",
@@ -48,7 +49,7 @@ export function SessionProvider({ children }) {
     title: ROLE_META[role]?.label || "User",
     territory: TERRITORY_SAMPLE[role] || "—",
     email: sessionUser.email,
-    avatar: sessionUser.avatar,
+    avatar: userAvatar || sessionUser.avatar,
   };
 
   const value = {
@@ -57,6 +58,7 @@ export function SessionProvider({ children }) {
     setRole,
     roles: ROLE_ORDER,
     user,
+    updateAvatar: (url) => setUserAvatar(url),
     signOut: () => {
       // No-op in prototype mode
       console.log("Sign out bypassed in prototype mode");

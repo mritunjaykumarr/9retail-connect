@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Avatar.scss";
 
 const SIZES = { xs: 24, sm: 32, md: 40, lg: 48, xl: 64 };
@@ -19,15 +19,10 @@ function hueFromString(str = "") {
   return h;
 }
 
-/**
- * Avatar — image with graceful initials fallback + optional status dot.
- *  size: xs | sm | md | lg | xl (or number)
- *  shape: "circle" | "rounded"
- *  status: "online" | "offline" | "busy" | "away"
- */
 export default function Avatar({
   src,
   name = "",
+  fallback,
   size = "md",
   shape = "circle",
   status,
@@ -35,22 +30,28 @@ export default function Avatar({
   ...rest
 }) {
   const [broken, setBroken] = useState(false);
+
+  useEffect(() => {
+    setBroken(false);
+  }, [src]);
+
   const px = typeof size === "number" ? size : SIZES[size] || SIZES.md;
   const showImg = src && !broken;
-  const hue = hueFromString(name);
+  const displayName = name || (typeof fallback === "string" ? fallback : "");
+  const hue = hueFromString(displayName || "User");
 
   return (
     <span
       className={`rc-avatar rc-avatar--${shape} ${className}`.trim()}
       style={{ "--_size": `${px}px` }}
-      title={name || undefined}
+      title={name || (typeof fallback === "string" ? fallback : undefined)}
       {...rest}
     >
       {showImg ? (
         <img
           className="rc-avatar__img"
           src={src}
-          alt={name}
+          alt={name || "Avatar"}
           onError={() => setBroken(true)}
         />
       ) : (
@@ -62,7 +63,7 @@ export default function Avatar({
             color: `hsl(${hue} 55% 32%)`,
           }}
         >
-          {initials(name)}
+          {fallback !== undefined ? fallback : initials(name)}
         </span>
       )}
       {status && (

@@ -24,9 +24,12 @@ import {
   EmptyState,
   Checkbox,
   Select,
-  useToast
+  useToast,
+  FileUpload
 } from "../../../../../components/ui";
 import styles from "./page.module.scss";
+
+import * as XLSX from "xlsx";
 
 export default function SalesUploadPage() {
   const router = useRouter();
@@ -34,14 +37,14 @@ export default function SalesUploadPage() {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [saveMapping, setSaveMapping] = useState(true);
   const [isValidating, setIsValidating] = useState(false);
-  const { toast } = useToast();
+  const toast = useToast();
 
   const onBackToDashboard = () => {
     router.push("/distributor");
   };
 
-  // Simulated columns from uploaded file
-  const fileColumns = ["InvoiceNo", "Customer Name", "ProductCode", "Qty Booked", "Net Amount", "Booking Date"];
+  // Extracted columns from uploaded file
+  const [fileColumns, setFileColumns] = useState(["InvoiceNo", "Customer Name", "ProductCode", "Qty Booked", "Net Amount", "Booking Date"]);
   
   // Mapping state
   const [mappings, setMappings] = useState({
@@ -68,21 +71,72 @@ export default function SalesUploadPage() {
     { row: 89, field: "Order Date", value: "2026/13/45", issue: "Invalid date format", action: "Fallback to current date" }
   ];
 
-  const handleFileDrop = (e) => {
-    e?.preventDefault();
-    setUploadedFile({
-      name: "distributor_sales_june_2026.xlsx",
-      size: "142 KB",
-      rows: 124
-    });
-    if (toast) {
-      toast({
-        title: "File uploaded successfully",
-        description: "distributor_sales_june_2026.xlsx loaded successfully.",
-        tone: "success"
+  const handleFileUploadSuccess = (fileData) => {
+    const file = fileData.rawFile;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: "array" });
+          const firstSheetName = workbook.SheetNames[0];
+          const worksheet = workbook.Sheets[firstSheetName];
+          
+          const jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+          
+          if (jsonData.length > 0) {
+            const headers = jsonData[0].map(h => String(h || "").trim());
+            const rowCount = Math.max(1, jsonData.length - 1);
+
+            setFileColumns(headers);
+            setUploadedFile({
+              name: fileData.name,
+              rows: rowCount,
+              type: "Uploaded File",
+              url: fileData.url
+            });
+
+            // Smart Auto-Mapping
+            const autoMappings = { ...mappings };
+            systemFields.forEach(field => {
+              const match = headers.find(h => {
+                const hNorm = h.toLowerCase().replace(/[^a-z0-9]/g, '');
+                const kNorm = field.key.toLowerCase();
+                const lNorm = field.label.toLowerCase().replace(/[^a-z0-9]/g, '');
+                return hNorm.includes(kNorm) || lNorm.includes(hNorm) || hNorm.includes(lNorm);
+              });
+              if (match) {
+                autoMappings[field.key] = match;
+              }
+            });
+            setMappings(autoMappings);
+
+            if (toast) {
+              toast.success("File Headers Extracted", {
+                description: `Successfully extracted ${headers.length} columns and ${rowCount} rows from ${fileData.name}.`
+              });
+            }
+          }
+        } catch (err) {
+          console.error("File Extraction Error:", err);
+          if (toast) {
+            toast.error("Error parsing file", {
+              description: "Could not read the uploaded file. Please ensure it's a valid CSV or Excel file."
+            });
+          }
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    } else {
+      setUploadedFile({
+        name: fileData.name,
+        rows: 124,
+        type: "Standard Template",
+        url: fileData.url
       });
     }
-    setStep(2);
+
+    setTimeout(() => setStep(2), 1200);
   };
 
   const startValidation = () => {
@@ -156,16 +210,14 @@ export default function SalesUploadPage() {
       {/* STEP 1: UPLOAD FILE */}
       {step === 1 && (
         <div className={styles.uploadView}>
-          <div 
-            className={styles.dropzone}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleFileDrop}
-            onClick={() => handleFileDrop()}
-          >
-            <FiUploadCloud className={styles.uploadIcon} />
-            <h3>Drag &amp; drop your sales spreadsheet here</h3>
-            <p>Supports Excel (.xlsx, .xls) or CSV files from Tally, SAP, or local systems</p>
-            <Button size="md" variant="secondary">Browse files</Button>
+          <div className={styles.dropzoneContainer}>
+            <FileUpload 
+              folder="sales-data" 
+              accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              label="Upload Sales Spreadsheet"
+              subtitle="Supports Excel (.xlsx, .xls) or CSV files from Tally, SAP, or local systems"
+              onUploadSuccess={handleFileUploadSuccess}
+            />
           </div>
 
           <div className={styles.uploadGuideGrid}>
@@ -273,11 +325,11 @@ export default function SalesUploadPage() {
             <CardBody>
               <div className={styles.summaryStatsRow}>
                 <div className={styles.statBox}>
-                  <span className={styles.statVal}>124</span>
+                  <span className={styles.statVal}>{typeof uploadedFile?.rows === "number" ? uploadedFile.rows : 124}</span>
                   <span className={styles.statLabel}>Total Rows Analyzed</span>
                 </div>
                 <div className={styles.statBox}>
-                  <span className={`${styles.statVal} ${styles.successColor}`}>121</span>
+                  <span className={`${styles.statVal} ${styles.successColor}`}>{typeof uploadedFile?.rows === "number" ? Math.max(0, uploadedFile.rows - 3) : 121}</span>
                   <span className={styles.statLabel}>Valid Rows Ready</span>
                 </div>
                 <div className={styles.statBox}>

@@ -1,0 +1,143 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1a1a1a;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #f6821f; /* Cloudflare Orange */
+  }
+
+  p {
+    color: #666;
+    font-size: 1.1rem;
+  }
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  border: 1px solid #eaeaea;
+}
+
+.dropZone {
+  display: block;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  padding: 4rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fafafa;
+
+  &:hover {
+    border-color: #f6821f;
+    background: #fffcf8;
+  }
+
+  &.uploading {
+    cursor: not-allowed;
+    border-color: #ccc;
+    background: #f5f5f5;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  .uploadIcon {
+    color: #666;
+  }
+
+  .successIcon {
+    color: #10b981;
+  }
+
+  .spinIcon {
+    color: #f6821f;
+    animation: spin 1s linear infinite;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #333;
+  }
+
+  .subtitle {
+    margin: 0;
+    color: #888;
+    font-size: 0.9rem;
+  }
+}
+
+.errorMessage {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+
+.successMessage {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  text-align: center;
+
+  p {
+    margin: 0 0 1rem 0;
+    color: #166534;
+  }
+
+  .note {
+    font-size: 0.9rem;
+    color: #374151;
+    margin-top: 1rem;
+    margin-bottom: 0;
+  }
+}
+
+.previewContainer {
+  margin-top: 1rem;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: inline-block;
+
+  .previewImage {
+    max-width: 100%;
+    max-height: 300px;
+    display: block;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
