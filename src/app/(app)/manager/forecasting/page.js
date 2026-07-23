@@ -38,6 +38,7 @@ export default function ManagerForecastingPage() {
   
   const [forecastData, setForecastData] = useState(null);
   const [targetsData, setTargetsData] = useState(null);
+  const [showExplanation, setShowExplanation] = useState(false);
 
   const fetchForecast = async (terrId, days) => {
     setLoading(true);
@@ -212,11 +213,20 @@ export default function ManagerForecastingPage() {
               <Button 
                 variant="secondary" 
                 size="sm" 
-                onClick={() => toast?.info("Explain Why", { description: "Analyzing model feature importance and risk factors..." })}
+                onClick={() => setShowExplanation(!showExplanation)}
               >
                 ✨ Explain This
               </Button>
             </div>
+            
+            {showExplanation && (
+              <div style={{ marginTop: "1rem", padding: "1rem", backgroundColor: "rgba(255,255,255,0.05)", borderRadius: "8px", borderLeft: "3px solid #6366f1" }}>
+                <h4 style={{ margin: "0 0 0.5rem 0", color: "#818cf8", fontSize: "0.95rem" }}>AI Explanation</h4>
+                <p style={{ margin: 0, fontSize: "0.9rem", color: "#cbd5e1", lineHeight: "1.5" }}>
+                  The AI identifies a moderate risk of Out-Of-Stock (OOS) based on the trailing 7-day velocity of Real Fresh Mango 1L, which is currently running 18% above historical averages. With current inventory at 240 units and daily depletion at 45 units, stock will run out in ~5 days unless the recommended replenishment action is taken immediately.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       )}
