@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
+import Link from "next/link";
 import {
   FiTrendingUp, FiActivity, FiTarget, FiBox,
   FiMapPin, FiSearch, FiFilter, FiAlertTriangle,
@@ -147,6 +148,11 @@ export default function ForecastsPage() {
           </div>
         </div>
         <div className={styles.headerActions}>
+          <Link href="/manager/forecasting">
+            <Button variant="primary" size="sm" leadingIcon={<FiCpu />}>
+              Live Python Engine Dashboard
+            </Button>
+          </Link>
           <Tooltip content="Re-run model with latest data">
             <Button variant="outline" size="sm" leadingIcon={<FiRefreshCw />}>
               Retrain

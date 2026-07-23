@@ -1,5 +1,6 @@
 import React from "react";
-import { FiShoppingCart, FiPhoneCall, FiCheckSquare, FiShield } from "react-icons/fi";
+import Link from "next/link";
+import { FiShoppingCart, FiPhoneCall, FiCheckSquare, FiShield, FiTrendingUp, FiMap, FiNavigation, FiTarget } from "react-icons/fi";
 import { roleLabel } from "../../lib/roles";
 import StatCard from "../ui/StatCard/StatCard";
 import Badge from "../ui/Badge/Badge";
@@ -50,6 +51,48 @@ export default function ManagerOverview({ user, summary }) {
           deltaLabel="vs last month"
           icon={<FiCheckSquare />}
         />
+      </div>
+
+      <div className="mgr__modules" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1rem", margin: "1.5rem 0" }}>
+        <Link href="/manager/forecasting" style={{ textDecoration: "none" }}>
+          <div style={{ background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 100%)", color: "#fff", padding: "1.25rem", borderRadius: "12px", boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <FiTrendingUp style={{ fontSize: "1.25rem", color: "#f59e0b" }} />
+              <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 700, color: "#fff" }}>AI Demand Forecasting</h3>
+            </div>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "#c7d2fe" }}>Python Projection Engine &amp; Auto-Targets</p>
+          </div>
+        </Link>
+
+        <Link href="/manager/field-map" style={{ textDecoration: "none" }}>
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "1.25rem", borderRadius: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <FiMap style={{ fontSize: "1.25rem", color: "#2563eb" }} />
+              <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 700, color: "#0f172a" }}>Live Field Map</h3>
+            </div>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "#64748b" }}>Real-time positions of Sales Officers</p>
+          </div>
+        </Link>
+
+        <Link href="/manager/beats" style={{ textDecoration: "none" }}>
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "1.25rem", borderRadius: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <FiNavigation style={{ fontSize: "1.25rem", color: "#059669" }} />
+              <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 700, color: "#0f172a" }}>Beat Designer</h3>
+            </div>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "#64748b" }}>Plan ordered retailer routes per SO</p>
+          </div>
+        </Link>
+
+        <Link href="/projections" style={{ textDecoration: "none" }}>
+          <div style={{ background: "#fff", border: "1px solid #e2e8f0", padding: "1.25rem", borderRadius: "12px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.5rem" }}>
+              <FiTarget style={{ fontSize: "1.25rem", color: "#7c3aed" }} />
+              <h3 style={{ margin: 0, fontSize: "1rem", fontWeight: 700, color: "#0f172a" }}>Projection Engine</h3>
+            </div>
+            <p style={{ margin: 0, fontSize: "0.85rem", color: "#64748b" }}>National SKU projections &amp; overrides</p>
+          </div>
+        </Link>
       </div>
 
       <div className="mgr__scope">
