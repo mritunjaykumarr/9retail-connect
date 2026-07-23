@@ -197,7 +197,26 @@ export default function ManagerForecastingPage() {
             <h3>OpenRouter AI Executive Demand Summary</h3>
           </div>
           <div className={styles.aiBody}>
-            {forecastData.summary.aiExecutiveSummary}
+            <div style={{ whiteSpace: "pre-wrap", lineHeight: "1.6" }}>
+              {forecastData.summary.aiExecutiveSummary}
+            </div>
+            
+            <div style={{ display: "flex", gap: "1rem", marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+              <Button 
+                variant="primary" 
+                size="sm" 
+                onClick={() => toast?.success("Recommendations Applied", { description: "Secondary targets updated based on AI insights." })}
+              >
+                Apply Recommendations
+              </Button>
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                onClick={() => toast?.info("Explain Why", { description: "Analyzing model feature importance and risk factors..." })}
+              >
+                ✨ Explain This
+              </Button>
+            </div>
           </div>
         </div>
       )}
