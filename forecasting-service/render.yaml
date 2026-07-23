@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: retailconnect-forecasting-service
+    env: python
+    region: singapore
+    plan: starter
+    rootDir: forecasting-service
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT --workers 2"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: MONGODB_URI
+        sync: false
+      - key: FORECAST_API_SECRET
+        generateValue: true
+      - key: OPENROUTER_API_KEY
+        sync: false
+
+  - type: cron
+    name: retailconnect-weekly-model-retrain
+    env: python
+    rootDir: forecasting-service
+    schedule: "0 2 * * 0"
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python -c 'from database.queries import run_batch_retrain; run_batch_retrain()'"
+    envVars:
+      - key: MONGODB_URI
+        sync: false
